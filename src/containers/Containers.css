@@ -1,0 +1,49 @@
+
+/* HomeJumbotron.js */
+.jumbotron{
+    background-image: linear-gradient(to right bottom, rgba(68, 160, 141, 0.8) 40%, rgba(9, 54, 55, 0.99)), url(../img/jumbotron-bg.jpg);
+    background-size: cover;
+    background-position: top;
+    border-radius: 0px !important;
+  }
+  
+  .jumbo-text{
+    color: #fff;
+    margin-bottom: .8rem;
+  }
+.home-body-area{
+  margin: 4rem 0;
+}
+.missions-area{
+  margin: 4rem 0;
+}
+.mission-row{
+  margin: 2rem;
+}
+  .algn-center{
+    text-align: center;
+  }
+
+/* LessonsTopBar.js */
+  .lessons-top-bar-brand{
+    padding: .8rem 0rem;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.9);
+  }
+  .lessons-top-bar-brand a{
+    color: rgba(0, 0, 0, 0.9);
+  }
+  .lessons-top-bar-brand a:hover {
+    color: #28b485;
+    transition: all .2s;
+  }
+
+  /* LoginPage.js and Signup.js */
+  .auth-page{
+    padding: 2rem 0;
+  }
+  .bg{
+    display: flex;
+    align-items: center;
+    min-height: 70vh;
+  }

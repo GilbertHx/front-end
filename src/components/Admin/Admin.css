@@ -1,0 +1,283 @@
+.admin-body{
+    margin-top: 5rem;
+}
+
+/* WihAdminNav */
+.navbar-blue{
+    background: #30415D;
+}
+
+/* NewLesson.js and NewCourse.js */
+form .admin-clear-btn {
+    margin-left: .8rem;
+  }
+  
+.btn-new{
+    padding-right: .8rem; 
+}
+
+/* Summary.js */
+.summary-card{
+    margin-top: .8rem;
+    box-shadow: 0 .2rem .8rem .025rem rgba(0,0,0,0.05);
+}
+.summary-card-title{
+    font-weight: 500;
+    font-size: .8rem;
+    color: lightslategray
+}
+.summary-card-value{
+    text-align: center;
+    border-radius: 50px;
+    padding: .2rem 0;
+}
+.total-users{
+    background-color: rgba(189, 183, 107, 0.3);
+    color: darkkhaki;
+    border: .1rem solid darkkhaki;
+    
+}
+.total-graduates{
+    background-color: rgba(0, 139, 139, 0.3);
+    color: darkcyan;
+    border: .1rem solid darkcyan;
+}
+.total-ungraduates{
+    background-color: rgba(255, 127, 80, 0.3);
+    color: coral;
+    border: .1rem solid coral;
+}
+.total-in-class{
+    background-color: rgba(135, 207, 235, 0.3);
+    color: skyblue;
+    border: .1rem solid skyblue;
+}
+.total-target{
+    background-color: rgba(128, 128, 128, 0.3);
+    color: grey;
+    border: .1rem solid grey;
+}
+.summary-card-value{
+    font-weight: 600;
+}
+.pie-doughnut-card{
+    margin: 1.6rem 0;
+    box-shadow: 0 .2rem .8rem .025rem rgba(0,0,0,0.05);
+}
+.pie-chart{
+    padding: 1.6rem;
+}
+.doughnut-chart{
+    padding: 1.6rem;
+}
+
+/* User.js */
+.table-card{
+    padding: 1.6rem 1.6rem 0 1.6rem;
+    box-shadow: 0 .2rem .8rem .025rem rgba(0,0,0,0.05);
+}
+.table-title{
+    padding-bottom: .8rem;
+}
+.table .thead-light th{
+    color: #495057;
+    background-color: rgba(0, 139, 139, 0.3);
+    border-color: rgba(0, 139, 139, 0.3);
+}
+
+/* New Course */
+.new-card{
+    padding: 1rem 1.6rem;
+    margin: 1.6rem 0
+}
+.new-item{
+    padding: .8rem 0 1.6rem 0;
+}
+/* Course */
+.delete-btn{
+    color: #90A4AE;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    color: #DD3333;
+}
+
+/* Quiz */
+.admin-quiz-card{
+    padding: 1rem 1.6rem;
+    margin: 1.6rem 0
+}
+.quiz-area{
+    margin: .4rem 0;
+}
+
+.true-span{
+    color: #44A08D;
+}
+.false-span{
+    color: #DD3333
+}
+
+/* Exam */
+.admin-exam-card{
+    padding: 1rem 1.6rem;
+    margin: 1.6rem 0;
+    transition: all .3s;
+}
+
+.admin-exam-card:hover{
+    box-shadow: 0 .4rem 1.6rem .075rem rgba(0,0,0,0.15);
+    transform: translateY(-.2rem) scale(1.01);
+}
+
+.admin-exam-card-question-responses{
+    padding: 1rem 1.6rem;
+    margin: 1.6rem 0;
+}
+
+/* .admin-exam-card h5, h6 {
+    color: #30415D;
+    text-decoration: none;
+} */
+
+.link-card {
+    text-decoration: none;
+    color: #30415D;
+}
+
+.link-card:hover {
+    text-decoration: none;
+    color: #30415D;
+}
+
+.link-card h5:hover, .link-card h6:hover  {
+    color: #44A08D;
+}
+
+.exam-card-title{
+    margin: 1.6rem 0;
+    text-align: center;
+}
+
+.admin-exam-question-card{
+    padding: 1.6rem 0;
+}
+
+.right-algn{
+    text-align: end;
+}
+
+.approved-btn{
+    color: #44A08D;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+.green_icon{
+    color: #44A08D;
+}
+.red_icon {
+    color: #DD3333;
+}
+.approved-btn:hover {
+    color: #90A4AE;
+    background: transparent;
+    border: none;
+}
+
+.not-approved-btn{
+    color: #90A4AE;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.not-approved-btn:hover {
+    color: #44A08D;
+    background: transparent;
+    border: none;
+}
+
+.response-answers{
+    margin-top: .4rem;
+}
+
+.next-btn{
+    background:#44A08D;
+    color: azure;
+    border-radius: 4px !important;
+}
+
+.previous-btn{
+    background: #ffffff;
+    color: #90A4AE;
+    border-radius: 4px !important;
+    border: 1px solid #90A4AE;
+    margin: 0 .8rem 0 0;
+}
+.assessment-marks-card{
+    padding: 1rem 2rem 2rem 2rem;
+}
+.exam-marks-card{
+    padding: 1rem 2rem 2rem 2rem;
+}
+
+.marks-title{
+    margin: 2rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.exam-marks-label{
+    text-align: center;
+    margin: 2rem 0;
+    color: #44A08D;
+}
+
+.tb-label{
+    font-weight: 600;
+}
+
+.staff-activate-row{
+    padding: 2rem 0;
+}
+
+.activate-col{
+
+}
+
+.staff-col{
+    text-align: end;
+}
+
+/* 
+Responsive Media breakpoints
+ */
+
+/* // Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.99px) { 
+    
+   }
+  
+  /* // Small devices (landscape phones, 576px and up) */
+  @media (min-width: 576px) and (max-width: 767.99px) { 
+    
+   }
+  
+  /* // Medium devices (tablets, 768px and up) */
+  @media (min-width: 768px) and (max-width: 991.99px) { 
+    
+   }
+  
+  /* // Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) and (max-width: 1199.99px) { 
+    
+   }
+  
+  /* // Extra large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) { 
+    
+   }
