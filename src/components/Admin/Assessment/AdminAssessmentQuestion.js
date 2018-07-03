@@ -16,8 +16,8 @@ class AdminAssessmentQuestion extends Component {
                 <li key={response.id} className="row response-answers">
                     <div className="col-9">{response.label}</div>
                     {response.correct === true ?
-                        <div className="true-span col-3 right-algn">True</div>:
-                        <div className="false-span col-3 right-algn">False</div>
+                        <div className="true-span col-3 text-right">True</div>:
+                        <div className="false-span col-3 text-right">False</div>
                     }
                 </li>
             );
@@ -29,15 +29,21 @@ class AdminAssessmentQuestion extends Component {
     renderQuestion(){
         const { assessmentQuestions } = this.props
         return _.map(assessmentQuestions, (question) => {
+            console.log(question);
+            
             return(
                 <div key={question.id}>
                     <div className="admin-exam-question-card">
                         <div className="row">
-                            <div className="col">
-                                <Link to={`/admin/assessments/question/${question.id}/answer`} className="link-card"><h6 className="">Question: {question.label}</h6></Link>
+                            <div className="col-9">
+                                {
+                                    question.is_essay === false ?
+                                    <Link to={`/admin/assessments/question/${question.id}/answer`} className="link-card"><h6 className="">Question: {question.label}</h6></Link> :
+                                    <h6>Essay Question: {question.label} </h6>
+                                }
                             </div>
-                            <div className="col right-algn">
-                                <button className="delete-btn" onClick={this.onDeleteQuestion.bind(this, question.id)}><i className="far fa-trash-alt"></i></button>
+                            <div className="col-3 text-right">
+                                <button className="delete-btn" onClick={this.onDeleteQuestion.bind(this, question.id)}><span className="character-icon-normal">&#128465;</span></button>
                             </div>
                         </div>
                         <ul>

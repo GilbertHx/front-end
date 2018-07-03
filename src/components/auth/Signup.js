@@ -8,9 +8,7 @@ class Signup extends Component {
     
     handleFormSubmit(values) {
         //do stuff to sign up the user
-        this.props.signupUser(values, () => {
-            this.props.getCurrentUser()
-        });
+        this.props.signupUser(values);
     }
 
     renderAlert() {

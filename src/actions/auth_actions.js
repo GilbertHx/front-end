@@ -5,7 +5,7 @@ import {
 } from './types';
 
 import history from '../utils/history';
-import { ROOT_URL, headers } from '../config/api_settings';
+import { ROOT_URL } from '../config/api_settings';
 
 export function loginUser(values, callback) {
     const { username, password } = values;
@@ -15,19 +15,24 @@ export function loginUser(values, callback) {
                 localStorage.setItem('token', response.data.key);
                 dispatch({ type: AUTH_USER });
             })
-            .then(() => callback())
+            .then(() => {
+                callback()
+            })
             .catch((err) => {
                 dispatch(authError(err.response.data.non_field_errors));
             });
     }
 }
 
-export function getCurrentUser() {
+export function getCurrentUser(token) {
     return function(dispatch) {
         axios({ 
             method: 'get',
             url: `${ROOT_URL}/api/current/user/`,
-            headers
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            }
         })
         .then(response => {
             localStorage.setItem('is_staff', response.data.is_staff)
@@ -58,17 +63,12 @@ export function getCurrentUser() {
     // }
 }
 
-export function signupUser(values, callback){
+export function signupUser(values){
     return function(dispatch) {
         axios.post(`${ROOT_URL}/api/registration/`, values)
-            .then(response => {
-                dispatch({ type: AUTH_USER });
-                localStorage.setItem('token', response.data.key);
-            })
-            .then(() => callback())
             .catch((err) => {
-                dispatch(authError('Bad Singup Info'));
-                // dispatch(authError(err.response.data.detail));
+                // dispatch(authError('Bad Singup Info'));
+                dispatch(authError(err.response.data.detail));
             });
     }
 }
@@ -81,7 +81,20 @@ export function authError(error) {
 }
 
 export function logoutUser() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('is_staff');
-    return { type: UNAUTH_USER };
+    return function(dispatch) {
+        axios.post(`${ROOT_URL}/api/auth/logout/`)
+            .then(response => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('is_staff');
+                dispatch({ type: UNAUTH_USER });
+            })
+            .catch((err) => {
+                dispatch(authError("BAD LOGOUT"));
+                // dispatch(authError(err.response.data.non_field_errors));
+            });
+    }
+    // axios.post(`${ROOT_URL}/api/auth/logout/`)
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('is_staff');
+    // return { type: UNAUTH_USER };
 }

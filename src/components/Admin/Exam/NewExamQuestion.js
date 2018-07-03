@@ -51,6 +51,16 @@ class NewExamQuestion extends Component {
             );
         });
     }
+
+    renderErrorAlert() {
+        if (this.props.errorMessage) {
+            return (
+                <div className="alert alert-danger">
+                    <strong>Oops!</strong> {this.props.errorMessage}
+                </div>
+            );
+        }
+    }
     render() {
         const { handleSubmit, pristine, reset, submitting } = this.props
         return (
@@ -66,6 +76,8 @@ class NewExamQuestion extends Component {
                         </Field>
                         </div>
                     </div> */}
+                    
+                    {this.renderErrorAlert()}
                     <Field
                         name="label"
                         type="text"
@@ -78,9 +90,9 @@ class NewExamQuestion extends Component {
                         component={renderField}
                         label="Question Marks"
                     />
-                    <div>
-                        <button className="btn btn-primary" type="submit" disabled={pristine ||submitting}>Submit</button>
+                    <div className="text-right"> 
                         <button className="btn btn-outline-secondary admin-clear-btn" disabled={pristine || submitting} onClick={reset}>Clear</button>
+                        <button className="btn btn-primary" type="submit" disabled={pristine ||submitting}>Submit</button>
                     </div>
                 </form>
             </div>
@@ -90,8 +102,8 @@ class NewExamQuestion extends Component {
 
 const validate = values => {
     const errors = {}
-    if (!values.exam) {
-      errors.exam = 'Required'
+    if (!values.label) {
+      errors.label = 'Required'
     }
     if (!values.marks) {
         errors.marks = 'Required'
@@ -102,7 +114,8 @@ const validate = values => {
 
 function mapStateToProps(state) {
     return {
-        exams: state.exams
+        exams: state.exams,
+        errorMessage: state.auth.error
     };
 }
 

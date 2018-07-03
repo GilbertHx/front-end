@@ -16,8 +16,8 @@ class AdminAssessment extends Component {
                 <li key={response.id} className="row response-answers">
                     <div className="col-8">{response.label}</div>
                     {response.correct === true ?
-                        <div className="true-span col-4 right-algn">True</div>:
-                        <div className="false-span col-4 right-algn">False</div>
+                        <div className="true-span col-4 text-right">True</div>:
+                        <div className="false-span col-4 text-right">False</div>
                     }
                 </li>
             );
@@ -29,7 +29,11 @@ class AdminAssessment extends Component {
                 <div className="admin-exam-question-card" key={question.id}>
                     <div className="row">
                         <div className="col">
-                            <h6 className="">Question: {question.label}</h6>
+                        {
+                            question.is_essay === false ?
+                            <h6 className="">Question: {question.label}</h6> :
+                            <h6 className="">Essay Question: {question.label}</h6>
+                        }
                         </div>
                     </div>
                     <ul>
@@ -54,8 +58,8 @@ class AdminAssessment extends Component {
                             {this.renderQuestion(assessment.questions)}
                         </Link>
                         <div className="row">
-                            <div className="col right-algn">
-                                <button className="delete-btn" onClick={this.onDeleteAssessment.bind(this, assessment.id)}><i className="far fa-trash-alt"></i></button>
+                            <div className="col text-right">
+                                <button className="delete-btn" onClick={this.onDeleteAssessment.bind(this, assessment.id)}><span className="character-icon-normal">&#128465;</span></button>
                             </div>
                         </div>
                     </div>

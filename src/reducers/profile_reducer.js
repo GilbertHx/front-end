@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import { FETCH_SINGLE_USER,  ACTIVATE_USER, DEACTIVATE_USER, MAKE_USER_STAFF, MAKE_USER_STUDENT } from '../actions/types';
+import { FETCH_SINGLE_USER, CREATE_USER_COMMENT,  ACTIVATE_USER, DEACTIVATE_USER, MAKE_USER_STAFF, MAKE_USER_STUDENT } from '../actions/types';
 
 export default function(state = {}, action){
     switch(action.type) {
@@ -13,6 +12,11 @@ export default function(state = {}, action){
             return {...state, is_staff: true}
         case MAKE_USER_STUDENT:
             return {...state, is_staff: false}
+        case CREATE_USER_COMMENT:
+            return {
+                ...state,
+                comments: [...state.comments, action.payload.data]
+            }
         default: 
             return state;
     }

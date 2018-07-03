@@ -2,11 +2,15 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchUnits } from '../actions/units_actions';
+import { fetchUnits, unitCompletion } from '../actions/units_actions';
 
 class Units extends Component {
     componentDidMount() {
-        this.props.fetchUnits();
+        if (this.props.authenticated) {
+            this.props.unitCompletion(() => {
+                this.props.fetchUnits();
+            });
+        }
     }
 
     renderSessions(sessions) {
@@ -31,34 +35,47 @@ class Units extends Component {
         return _.map(this.props.units, unit => {
             return(
                 <div key={unit.id}>
-                    <h4>{unit.title}</h4>
-                    <i>{unit.description}</i>
-                    <div className="row align-items-center units-row">
-                        {this.renderSessions(unit.sessions)}
-                        <div className="col-md-6 col-lg-3">
-                            <Link to={`/unit/${unit.id}/assessment`} className="link-card">
-                                <div className="card assessment-card">
-                                    <h5 className="unit-test-title">{unit.title} Assessment</h5>
-                                    <div className="btn-start-container">
-                                        <span className="btn-assessment-start">Start</span>
+                    {
+                        unit.unit_completed[0].show_unit === true ?
+                            <div>
+                                <h4>{unit.title}</h4>
+                                <i>{unit.description}</i>
+                                <div className="row align-items-center units-row">
+                                    {this.renderSessions(unit.sessions)}
+                                    <div className="col-md-6 col-lg-3">
+                                        <Link to={`/unit/${unit.id}/assessment`} className="link-card">
+                                            <div className="card assessment-card">
+                                                <h5 className="unit-test-title">{unit.title} Assessment</h5>
+                                                <div className="btn-start-container">
+                                                    <span className="btn-assessment-start">Start</span>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </div>    
+                                </div>
+                                {/* <div>
+                                    <div className="card unit-test-card">
+                                        <div className="row">
+                                            <div className="col">
+                                                <h5 className="unit-test-title">{unit.title} Test</h5>
+                                            </div>
+                                            <div className="col unit-test-btn">
+                                                <Link to={`/unit/${unit.id}/assessment`} className="btn btn-primary">Take The Test</Link>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </Link>
-                        </div>    
-                    </div>
-                    {/* <div>
-                        <div className="card unit-test-card">
-                            <div className="row">
-                                <div className="col">
-                                    <h5 className="unit-test-title">{unit.title} Test</h5>
-                                </div>
-                                <div className="col unit-test-btn">
-                                    <Link to={`/unit/${unit.id}/assessment`} className="btn btn-primary">Take The Test</Link>
+                                </div> */}
+                            </div> :
+                            <div>
+                                <h4>{unit.title}</h4>
+                                <i>{unit.description}</i>
+                                <div className="row align-items-center units-row">
+                                    <span className="character-icon-normal complete_previous_label">&#9888;<i> Complete the previous assessment to continue with this unit</i></span>
                                 </div>
                             </div>
-                        </div>
-                    </div> */}
+                    }
                 </div>
+                
             );
         });
     }
@@ -76,8 +93,9 @@ class Units extends Component {
 
 function mapStateToProprs(state) {
     return {
-        units: state.units
+        units: state.units,
+        authenticated: state.auth.authenticated
     };
 }
 
-export default connect(mapStateToProprs, { fetchUnits })(Units);
+export default connect(mapStateToProprs, { fetchUnits, unitCompletion })(Units);

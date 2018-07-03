@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import HomeJumbotron from '../containers/HomeJumbotron';
+import HomeJumbotron from './HomeJumbotron';
 import HomeBody from '../containers/HomeBody';
 import Units from './Units';
+import { connect } from 'react-redux';
 
 class App extends Component {
   render() {
@@ -10,10 +11,19 @@ class App extends Component {
       <div className="App">
         <HomeJumbotron />
         <HomeBody />
-        <Units />
+        {
+          this.props.authenticated ?
+          <Units /> :
+          <div></div>
+        }
       </div>
     );
   }
 }
-  
-export default App;
+function mapStateToProps(state) {
+  return {
+    authenticated: state.auth.authenticated
+  };
+}
+
+export default connect(mapStateToProps)(App);

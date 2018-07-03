@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchQuestions, updateQuestionStatusQuestion, examMarkCreate } from '../actions/exam_actions';
+import { fetchExamQuestions, updateQuestionStatusQuestion, examMarkCreate } from '../actions/exam_actions';
 import { reset, Field, reduxForm } from 'redux-form';
 
 
@@ -23,7 +23,9 @@ const Checkbox = ({
 
 class ExamQuestion extends Component {
     componentDidMount() {
-        this.props.fetchQuestions();
+        const { exam_id } = this.props
+        // console.log(exam_id)
+        this.props.fetchExamQuestions(exam_id);
     }
 
     renderAnswers(responses){
@@ -91,29 +93,39 @@ class ExamQuestion extends Component {
             }
         }
         
-        this.props.updateQuestionStatusQuestion(completed, true, question_id)
-        this.props.examMarkCreate(this.props.exam_id)
+        console.log(completed)
+        this.props.updateQuestionStatusQuestion(completed, true, question_id, this.props.exam_id)
+    }
+
+    Rand(NewDictionary) {
+        const keys = Object.keys(NewDictionary);
+        let i = keys.length;
+        const j = Math.floor(Math.random() * i);
+        return NewDictionary[keys[j]];
     }
 
     renderQuestion(){
         const { questions } = this.props
-        if (questions[Object.keys(questions)[0]]){
-            const question = questions[Object.keys(questions)[0]]
-            const { handleSubmit, pristine, submitting } = this.props
-            return(
-                <div className="published-question-area" key={question.id}>
-                    <h6>{question.label}</h6>
-                    <form onSubmit={handleSubmit(this.onSubmit.bind(this, question.id))}>
-                        <ul>
-                            {this.renderAnswers(question.responses)}
-                        </ul>
-                        <div className="right-algn">
-                            <button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
-                        </div>
-                    </form>
-                </div>
-            )
+        const question = this.Rand(questions);
+        
+        const { handleSubmit, pristine, submitting } = this.props
+        if (!question) {
+            return <div>Loading..</div>
         }
+
+        return(
+            <div className="published-question-area" key={question.id}>
+                <h6 className="question-label">{question.label}</h6>
+                <form onSubmit={handleSubmit(this.onSubmit.bind(this, question.id))}>
+                    <ul>
+                        {this.renderAnswers(question.responses)}
+                    </ul>
+                    <div className="text-right">
+                        <button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
+                    </div>
+                </form>
+            </div>
+        )
     }
 
     render() {
@@ -138,5 +150,5 @@ export default reduxForm({
     form: 'checkboxexam',
     onSubmitSuccess: afterSubmit,
 })(
-    connect(mapStateToProprs, { fetchQuestions, updateQuestionStatusQuestion, examMarkCreate })(ExamQuestion)
+    connect(mapStateToProprs, { fetchExamQuestions, updateQuestionStatusQuestion, examMarkCreate })(ExamQuestion)
 );

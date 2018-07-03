@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchLessons, deleteLesson } from '../../actions/lessons_actions';
 import NewLesson from './NewLesson';
+import { Link } from 'react-router-dom';
 
 class AdminLessons extends Component {
     componentDidMount() {
@@ -15,10 +16,9 @@ class AdminLessons extends Component {
         return _.map(this.props.lessons, (lesson) => {
             return(
                 <tr key={lesson.id}>
-                    <td>{lesson.title}</td>
-                    <td>{lesson.session}</td>
-                    <td>{lesson.lesson_index}</td>
-                    <td><button className="delete-btn" onClick={this.onDelete.bind(this, lesson.id)}> <i className="far fa-trash-alt"></i></button></td>
+                    <td><Link to={`lesson/${lesson.id}/edit`}>{lesson.title}</Link></td>
+                    <td>{lesson.session_title}</td>
+                    <td><button className="delete-btn" onClick={this.onDelete.bind(this, lesson.id)}><span className="character-icon-normal">&#128465;</span></button></td>
                 </tr>
             );
         });
@@ -30,13 +30,12 @@ class AdminLessons extends Component {
                 <div className="card table-card">
                     <h4 className="table-title">All Lessons</h4>
                     <div>
-                        <table className="table table-bordered">
+                        <table className="table table-bordered table-striped">
                         <thead className="thead-light">
                             <tr>
-                                <th scope="col">Title</th>
-                                <th scope="col">Course</th>
-                                <th scope="col">Index</th>
-                                <th scope="col"></th>
+                                <th scope="col">Lesson Title</th>
+                                <th scope="col">Session Title</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>

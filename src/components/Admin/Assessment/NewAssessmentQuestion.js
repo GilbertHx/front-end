@@ -60,9 +60,19 @@ class NewAssessmentQuestion extends Component {
                         component={renderField}
                         label="Question Marks"
                     />
-                    <div>
-                        <button className="btn btn-primary" type="submit" disabled={pristine ||submitting}>Submit</button>
+                    <div className="form-group">
+                        <label>Is Essay</label>
+                        <div>
+                            <Field className="form-control" name="is_essay" component="select">
+                                <option>------</option>
+                                <option key='false' value='false'>False</option>
+                                <option key='true' value='true'>True</option>
+                            </Field>
+                        </div>
+                    </div>
+                    <div className="text-right">
                         <button className="btn btn-outline-secondary admin-clear-btn" disabled={pristine || submitting} onClick={reset}>Clear</button>
+                        <button className="btn btn-primary" type="submit" disabled={pristine ||submitting}>Submit</button>
                     </div>
                 </form>
             </div>
@@ -77,6 +87,9 @@ const validate = values => {
     }
     if (!values.marks) {
         errors.marks = 'Required'
+    }
+    if (!values.is_essay) {
+        errors.is_essay = 'Required'
     }
     return errors
 }

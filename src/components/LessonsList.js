@@ -21,7 +21,7 @@ class LessonsList extends Component {
     }
     renderLessons() {
         return _.map(this.props.lessons, (lesson) => {
-            const course_id = this.props.match.params.id;
+            const session_id = this.props.match.params.id;
             return(
                 <div className="row" key={lesson.id}>
                     <div className="col-lg-1 lessons-list-index-card">
@@ -42,7 +42,7 @@ class LessonsList extends Component {
                                                 {lesson.description}
                                             </p>
                                             <hr className="collapse-description-line" />
-                                            <Link to={`/lesson/${course_id}/${lesson.id}`} className="btn btn-outline-primary">Review</Link>
+                                            <Link to={`/lesson/${session_id}/${lesson.id}`} className="btn btn-outline-primary">Review</Link>
                                         </div>
                                     </div>
                                     <div className="col-md-3 col-lg-2 align-self-center completed-label">&#x2714; Completed</div>
@@ -63,7 +63,7 @@ class LessonsList extends Component {
                                         </div>
                                     </div>
                                     <div className="col-md-3 col-lg-2 align-self-center lessons-list-start-btn">
-                                        <Link to={`/lesson/${course_id}/${lesson.id}`} className="btn btn-primary">Start</Link>
+                                        <Link to={`/lesson/${session_id}/${lesson.id}`} className="btn btn-primary">Start</Link>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,6 @@ class LessonsList extends Component {
                     <div className="" >
                         <Link to="/units" className="lessons-list-back-btn">&larr;</Link>
                     </div>
-                    {/* <Link className="btn btn-primary" to="/lessons/new">New Lesson</Link> */}
                     <div id="accordion" role="tablist">
                         {this.renderLessons()}
                     </div>

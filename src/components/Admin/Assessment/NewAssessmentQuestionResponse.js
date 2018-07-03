@@ -47,9 +47,9 @@ class NewAssessmentQuestionResponse extends Component {
                             </Field>
                         </div>
                     </div>
-                    <div>
-                        <button className="btn btn-primary" type="submit" disabled={pristine ||submitting}>Submit</button>
+                    <div className="text-right">
                         <button className="btn btn-outline-secondary admin-clear-btn" disabled={pristine || submitting} onClick={reset}>Clear</button>
+                        <button className="btn btn-primary" type="submit" disabled={pristine ||submitting}>Submit</button>
                     </div>
                 </form>
             </div>

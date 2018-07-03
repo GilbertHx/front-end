@@ -30,9 +30,13 @@ class NewQuiz extends Component {
     }
     renderLessonOptions(){
         return _.map(this.props.lessons, lesson => {
-            return(
-                <option key={lesson.id} value={lesson.id}>{lesson.title}</option>
-            );
+            if (lesson.quizzes !== undefined) {
+                if (lesson.quizzes.length === 0){
+                    return(
+                        <option key={lesson.id} value={lesson.id}>{lesson.title}</option>
+                    );
+                }
+            }
         });
     }
     render() {
@@ -56,9 +60,9 @@ class NewQuiz extends Component {
                         component={renderFieldArea}
                         label="Quiz Label"
                     />
-                    <div>
-                        <button className="btn btn-primary" type="submit" disabled={pristine ||submitting}>Submit</button>
+                    <div className="text-right">
                         <button className="btn btn-outline-secondary admin-clear-btn" disabled={pristine || submitting} onClick={reset}>Clear</button>
+                        <button className="btn btn-primary" type="submit" disabled={pristine ||submitting}>Submit</button>
                     </div>
                 </form>
             </div>

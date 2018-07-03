@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUnits, deleteUnit } from '../../actions/units_actions';
 import NewUnit from './NewUnit';
+import { Link } from 'react-router-dom';
 
 class AdminSessions extends Component {
     componentDidMount() {
@@ -15,9 +16,9 @@ class AdminSessions extends Component {
         return _.map(this.props.units, unit => {
             return(
                 <tr key={unit.id}>
-                    <td>{unit.title}</td>
+                    <td><Link to={`unit/${unit.id}/edit`}>{unit.title}</Link></td>
                     <td>{unit.sessions.length}</td>
-                    <td><button className="delete-btn" onClick={this.onDelete.bind(this, unit.id)}> <i className="far fa-trash-alt"></i></button></td>
+                    <td><button className="delete-btn" onClick={this.onDelete.bind(this, unit.id)}><span className="character-icon-normal">&#128465;</span></button></td>
                 </tr>
             );
         });
@@ -29,12 +30,12 @@ class AdminSessions extends Component {
                 <div className="card table-card">
                     <h4 className="table-title">All Units</h4>
                     <div>
-                        <table className="table table-bordered">
+                        <table className="table table-bordered table-striped">
                         <thead className="thead-light">
                             <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Sessions</th>
-                            <th scope="col"></th>
+                            <th scope="col">Unit Title</th>
+                            <th scope="col">Sections Count</th>
+                            <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -6,7 +6,7 @@ import {
     UPDATE_ASSESSMENT_QUESTION_STATUS, CREATE_ASSESSMENT_MARK, FETCH_ALL_ASSESSMENT_MARKS,
 } from './types';
 
-import { ROOT_URL, headers } from '../config/api_settings';
+import { ROOT_URL } from '../config/api_settings';
 
 export function fetchAllAssessments() {
     const request = axios.get(`${ROOT_URL}/api/assessment/`);
@@ -17,7 +17,14 @@ export function fetchAllAssessments() {
 }
 
 export function fetchUnitAssessments(id) {
-    const request = axios.get(`${ROOT_URL}/api/course/unit/detail/${id}/`);
+    const request = axios({
+        method: 'get',
+        url: `${ROOT_URL}/api/course/unit/detail/${id}/`,
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
+      });
     return {
         type: FETCH_UNIT_ASSESSMENTS,
         payload: request
@@ -29,7 +36,10 @@ export function createAssessment(values) {
         method: 'post',
         url: `${ROOT_URL}/api/assessment/create/`,
         data: values,
-        headers,
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        },
     });
     return {
         type: CREATE_ASSESSMENT,
@@ -41,7 +51,10 @@ export function deleteAssessment(id) {
     axios({
         method: 'delete',
         url: `${ROOT_URL}/api/assessment/${id}/delete`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: DELETE_ASSESSMENT,
@@ -53,7 +66,10 @@ export function fetchAllAssessmentQuestions() {
     const request = axios({
         method: 'get',
         url: `${ROOT_URL}/api/assessment/questions/`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: FETCH_ALL_ASSESSMENT_QUESTIONS,
@@ -61,7 +77,14 @@ export function fetchAllAssessmentQuestions() {
     };
 }
 export function fetchSingleAssessmentQuestions(id) {
-    const request = axios.get(`${ROOT_URL}/api/assessment/detail/${id}`);
+    const request = axios({
+        method: 'get',
+        url: `${ROOT_URL}/api/assessment/detail/${id}`,
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
+    });
     return {
         type: FETCH_SINGLE_ASSESSMENT_QUESTION,
         payload: request
@@ -85,7 +108,10 @@ export function createQuestionStatusQuestion(question) {
             done: false,
             completed: false,
         },
-        headers,
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        },
     });
     return {
         type: CREATE_ASSESSMENT_QUESTION_STATUS,
@@ -100,9 +126,13 @@ export function createAssessmentQuestion(values, assessment_id) {
         data: {
             assessment: assessment_id,
             label: values.label,
-            marks: values.marks
+            marks: values.marks,
+            is_essay: values.is_essay
         },
-        headers,
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        },
     });
     return {
         type: CREATE_ASSESSMENT_QUESTION,
@@ -114,7 +144,10 @@ export function deleteAssessmentQuestion(id) {
     axios({
         method: 'delete',
         url: `${ROOT_URL}/api/assessment/question/${id}/delete`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: DELETE_ASSESSMENT_QUESTION,
@@ -139,7 +172,10 @@ export function createAssessmentQuestionResponse(values, question_id) {
             label: values.label,
             correct: values.correct
         },
-        headers,
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        },
     });
     return {
         type: CREATE_ASSESSMENT_RESPONSE,
@@ -149,15 +185,19 @@ export function createAssessmentQuestionResponse(values, question_id) {
 
 export function createAssessmentQuestionEssayResponse(values, question_id) {
 
-    let formData = new FormData();
-    formData.append('essay', values.essay[0], values.essay[0].name);
-    formData.append('question', question_id);
-
+    console.log(values)
     const request = axios({
         method: 'post',
         url: `${ROOT_URL}/api/assessment/essay/response/create/`,
-        data: formData,
-        headers
+        data: {
+            essay: values.essay,
+            title: values.title,
+            question: question_id
+        },
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
       });
     return {
         type: CREATE_ASSESSMENT_ESSAY_RESPONSE,
@@ -174,7 +214,10 @@ export function updateQuestionStatusQuestion(completed, done, question) {
             question,
             done
         },
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: UPDATE_ASSESSMENT_QUESTION_STATUS,
@@ -189,7 +232,10 @@ export function assessmentMarkCreate(assessment, callback) {
         data: {
             assessment
         },
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     }).then(() => callback());
     return {
         type: CREATE_ASSESSMENT_MARK,
@@ -201,7 +247,10 @@ export function fetchAllAssessmentMarks() {
     const request = axios({
         method: 'get',
         url: `${ROOT_URL}/api/assessment/marks/admin/`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
 
     return {
@@ -215,7 +264,10 @@ export function retakeAssessment(assessment_id) {
         axios({
             method: 'put',
             url: `${ROOT_URL}/api/assessment/${assessment_id}/retake/`,
-            headers
+            headers :{
+                Accept: 'application/json',
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            }
         })
         .then(() => {
             dispatch(fetchSingleAssessmentQuestions(assessment_id))

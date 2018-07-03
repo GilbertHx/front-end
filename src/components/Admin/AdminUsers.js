@@ -9,23 +9,58 @@ class AdminUsers extends Component {
         this.props.fetchUsers();
     }
 
+    renderStageValue(user_stage) {
+        switch (user_stage)
+        {
+        case "I":
+            return (
+                <span>Still Learning</span>
+            )
+        case "U":
+            return (
+                <span>Done Exam</span>
+            )
+        case "G":
+            return (
+                <span>Graduated</span>
+            )
+        default:
+            return (
+                <span>Not Student</span>
+            )
+        }
+    }
+
+    renderStage(stages) {
+        return _.map(stages, stage => {
+            return(
+                    <td key={stage.id}>{this.renderStageValue(stage.user_stage)}</td>
+            );
+        });
+    }
+
     renderUsers() {
         return _.map(this.props.users, user => {
             return(
                 <tr key={user.id}>
                     <td><Link to={`profile/${user.id}`}>{user.username}</Link></td>
-                    <td>{user.first_name} {user.last_name}</td>
+                    <td>{user.profile.first_name} {user.profile.last_name}</td>
                     <td>{user.email}</td>
                     <td>
-                    {user.is_active === true ?
-                        <div className="green_icon"><i className="far fa-check-circle"></i></div> :
-                        <div className="red_icon"><i className="fas fa-times"></i></div>
-                    }</td>
+                    {
+                        user.is_active === true ?
+                        <span className="green_icon"> Active </span> :
+                        <span className="red_icon"> Inactive </span>
+                    }
+                    </td>
                     <td>
-                    {user.is_staff === true ?
-                        <div className="green_icon"><i className="far fa-check-circle"></i></div> :
-                        <div className="red_icon"><i className="fas fa-times"></i></div>
-                    }</td>
+                    {
+                        user.is_staff === true ?
+                        <span> Staff </span> :
+                        <span> Student </span>
+                    }
+                    </td>
+                    { this.renderStage(user.stage) }
                 </tr>
             );
         });
@@ -37,14 +72,15 @@ class AdminUsers extends Component {
                 <div className="card table-card">
                     <h4 className="table-title">All Users</h4>
                     <div>
-                        <table className="table table-bordered">
+                        <table className="table table-bordered table-striped">
                             <thead className="thead-light">
                                 <tr>
                                     <th scope="col">Username</th>
                                     <th scope="col">Names</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Active Status</th>
-                                    <th scope="col">Staff Status</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>

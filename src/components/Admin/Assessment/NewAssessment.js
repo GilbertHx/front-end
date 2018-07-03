@@ -31,9 +31,11 @@ class NewAssessment extends Component {
     }
     renderOptions() {
         return _.map(this.props.units, unit => {
-            return(
-                <option key={unit.id} value={unit.id}>{unit.title}</option>
-            );
+            if (unit.assessments.length === 0){
+                return(
+                    <option key={unit.id} value={unit.id}>{unit.title}</option>
+                );
+            }
         });
     }
     render() {
@@ -57,9 +59,9 @@ class NewAssessment extends Component {
                         component={renderField}
                         label="Assessment Title"
                     />
-                    <div>
-                        <button className="btn btn-primary" type="submit" disabled={pristine ||submitting}>Submit</button>
+                    <div className="text-right">
                         <button className="btn btn-outline-secondary admin-clear-btn" disabled={pristine || submitting} onClick={reset}>Clear</button>
+                        <button className="btn btn-primary" type="submit" disabled={pristine ||submitting}>Submit</button>
                     </div>
                 </form>
             </div>

@@ -26,6 +26,8 @@ import SignupPage from './containers/SignupPage';
 import App from './components/App';
 import Units from './components/Units';
 import UnitAssessment from './components/UnitAssessment';
+import AssessmentsEssays from './components/AssessmentsEssays';
+import Essay from './components/Essay';
 
 import LessonsList from './components/LessonsList';
 import Lesson from './components/Lesson';
@@ -34,7 +36,7 @@ import Exam from './components/Exam';
 import AdminNav from './components/Admin/WithAdminNav';
 import Dashboard from './components/Admin/Dashboard';
 import AdminUnits from './components/Admin/AdminUnits';
-import AdminSessions from './components/Admin/AdminSessions';
+import AdminSections from './components/Admin/AdminSections';
 import AdminLessons from './components/Admin/AdminLessons';
 import AdminQuizzes from './components/Admin/Quiz/AdminQuizzes';
 
@@ -48,8 +50,14 @@ import AdminQuestion from './components/Admin/Exam/AdminQuestion';
 import AdminQuestionResponse from './components/Admin/Exam/AdminQuestionResponse';
 
 import AdminUsers from './components/Admin/AdminUsers';
-import Profile from './components/Admin/Profile';
-// import AdminCourses from './components/Admin/AdminCourses';
+import AdminProfile from './components/Admin/AdminProfile';
+import AdminEssay from './components/Admin/AdminEssay';
+import EditUnit from './components/Admin/EditUnit';
+import EditSection from './components/Admin/EditSection';
+import EditLesson from './components/Admin/EditLesson';
+import Profile from './components/Profile';
+import EditProfile from './components/EditProfile';
+// import AdminCourses from './components/Admin/AdminCourses'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -68,14 +76,26 @@ if (token) {
 }
 
 if (is_staff) {
-    store.dispatch({ 
-        type: GET_CURRENT_USER,
-        payload: {
-            data: {
-            'is_staff': is_staff
+    if (is_staff === 'true') {
+        store.dispatch({ 
+            type: GET_CURRENT_USER,
+            payload: {
+                data: {
+                'is_staff': true
+                }
             }
-        }
-    });
+        });
+    } else {
+        store.dispatch({ 
+            type: GET_CURRENT_USER,
+            payload: {
+                data: {
+                'is_staff': false
+                }
+            }
+        });
+    }
+    
 }
 
 ReactDOM.render(
@@ -89,8 +109,11 @@ ReactDOM.render(
 
                 <Route path="/admin/dashboard" component={AdminNav(RequireAuthAdmin(Dashboard))} />
                 <Route path="/admin/units" component={AdminNav(RequireAuthAdmin(AdminUnits))} />
-                <Route path="/admin/sessions" component={AdminNav(RequireAuthAdmin(AdminSessions))} />
+                <Route path="/admin/unit/:id/edit" component={AdminNav(RequireAuthAdmin(EditUnit))} />
+                <Route exact path="/admin/sections" component={AdminNav(RequireAuthAdmin(AdminSections))} />
+                <Route path="/admin/sections/:id/edit" component={AdminNav(RequireAuthAdmin(EditSection))} />
                 <Route path="/admin/lessons" component={AdminNav(RequireAuthAdmin(AdminLessons))} />
+                <Route path="/admin/lesson/:id/edit" component={AdminNav(RequireAuthAdmin(EditLesson))} />
                 <Route path="/admin/quizzes" component={AdminNav(RequireAuthAdmin(AdminQuizzes))} />
                 <Route exact path="/admin/assessments" component={AdminNav(RequireAuthAdmin(AdminAssessment))} />
                 <Route path="/admin/assessments/:id/question/new" component={AdminNav(RequireAuthAdmin(AdminAssessmentQuestion))} />
@@ -101,16 +124,19 @@ ReactDOM.render(
                 <Route path="/admin/exams/question/:id/answer" component={AdminNav(RequireAuthAdmin(AdminQuestionResponse))} />
 
                 <Route path="/admin/users" component={AdminNav(RequireAuthAdmin(AdminUsers))} />
-                <Route exact path="/admin/profile/:id" component={AdminNav(RequireAuthAdmin(Profile))} />
-                
-                {/* <Route path="/admin/courses" component={AdminNav(RequireAuth(AdminCourses))} /> */}
+                <Route exact path="/admin/profile/:id" component={AdminNav(RequireAuthAdmin(AdminProfile))} />
+                <Route exact path="/admin/profile/essay/:id" component={AdminNav(RequireAuthAdmin(AdminEssay))} />
 
                 <Route exact path="/units" component={WithFooter(WithNavBar(RequireAuth(Units)))} />
                 <Route exact path="/unit/:id/assessment" component={WithFooter(WithNavBar(RequireAuth(UnitAssessment)))} />
+                <Route exact path="/unit/:id/assessment/essays" component={WithFooter(WithNavBar(RequireAuth(AssessmentsEssays)))} />
+                <Route exact path="/unit/assessment/essay/:id/rate" component={WithFooter(WithNavBar(RequireAuth(Essay)))}/>
 
-                <Route exact path="/lessons/all/:id" component={TopBar(RequireAuth(LessonsList))} />
-                <Route exact path="/lesson/:course_id/:id" component={RequireAuth(Lesson)} />
-                <Route exact path="/exam" component={WithFooter(WithNavBar(RequireAuth(Exam)))} />
+                <Route exact path="/lessons/all/:id" component={TopBar(RequireAuth(LessonsList))}/>
+                <Route exact path="/lesson/:session_id/:id" component={RequireAuth(Lesson)}/>
+                <Route exact path="/exam" component={WithFooter(WithNavBar(RequireAuth(Exam)))}/>
+                <Route exact path="/profile/:id" component={WithFooter(WithNavBar(RequireAuth(Profile)))}/>
+                <Route exact path="/profile/:id/edit" component={WithFooter(WithNavBar(RequireAuth(EditProfile)))}/>
             </div>
         </Router>
     </Provider>

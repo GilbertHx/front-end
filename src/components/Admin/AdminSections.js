@@ -2,9 +2,10 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSessions, deleteSession } from '../../actions/sessions_actions';
-import NewSession from './NewSession';
+import NewSection from './NewSection';
+import { Link } from 'react-router-dom';
 
-class AdminSessions extends Component {
+class AdminSections extends Component {
     componentDidMount() {
         this.props.fetchSessions();
     }
@@ -15,9 +16,9 @@ class AdminSessions extends Component {
         return _.map(this.props.sessions, session => {
             return(
                 <tr key={session.id}>
-                    <td>{session.title}</td>
+                    <td><Link to={`sections/${session.id}/edit`}>{session.title}</Link></td>
                     <td>{session.lessons.length}</td>
-                    <td><button className="delete-btn" onClick={this.onDelete.bind(this, session.id)}> <i className="far fa-trash-alt"></i></button></td>
+                    <td><button className="delete-btn" onClick={this.onDelete.bind(this, session.id)}><span className="character-icon-normal">&#128465;</span></button></td>
                 </tr>
             );
         });
@@ -25,16 +26,16 @@ class AdminSessions extends Component {
     render() {
         return (
             <div>
-                <NewSession />
+                <NewSection />
                 <div className="card table-card">
-                    <h4 className="table-title">All Sessions</h4>
+                    <h4 className="table-title">All Sections</h4>
                     <div>
-                        <table className="table table-bordered">
+                        <table className="table table-bordered table-striped">
                         <thead className="thead-light">
                             <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Lessons</th>
-                            <th scope="col"></th>
+                            <th scope="col">Section Title</th>
+                            <th scope="col">Lessons Count</th>
+                            <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,4 +55,4 @@ function mapStateToProprs(state) {
     };
 }
 
-export default connect(mapStateToProprs, { fetchSessions, deleteSession })(AdminSessions);
+export default connect(mapStateToProprs, { fetchSessions, deleteSession })(AdminSections);

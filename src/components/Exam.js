@@ -12,8 +12,10 @@ class Exam extends Component {
     renderExamCard(){
         return _.map(this.props.exams, (exam) => {
             return(
-                <div key={exam.id}>
-                    <h5 className="exam-card-title">{exam.title}</h5>
+                <div key={exam.id} className="exam-area">
+                    <div className="card green-bg">
+                        <h5 className="exam-title">{exam.title}</h5>
+                    </div>
                     <div className="card published-exam-card">
                         <ExamQuestion exam_id={exam.id}/>
                     </div>

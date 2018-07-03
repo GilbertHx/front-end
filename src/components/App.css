@@ -13,6 +13,12 @@ label {
   font-weight: 600;
 }
 
+.character-icon-normal{
+  font-size: 1.8rem;
+  padding: 0;
+  margin: 0;
+}
+
 .no-mrgn{
   margin: 0 !important;
 }
@@ -62,6 +68,8 @@ label {
 
 .unit-test-title{
   color: #708090;
+  padding: .4rem;
+  font-size: 1rem;
 }
 
 .units-row{
@@ -70,6 +78,11 @@ label {
 
 .unit-test-btn{
   text-align: end;
+}
+
+.green-bg{
+  background-color: #96cebb;
+  margin: .2rem 0;
 }
 
 .session-card{
@@ -120,10 +133,20 @@ label {
   height: 10rem !important;
 }
 .session-card-title{
-  color: #708090;
+  color: #44A08D;
+  font-size: .9rem;
+
 }
 .session-card-description{
   color: #000000da;
+  font-size: .9rem;
+}
+
+.complete_previous_label{
+  color: #E91E63;
+  padding: 0 2.8rem;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 /* LessonList.js */
@@ -163,7 +186,7 @@ label {
   content: '';
   display: block;
   height: 100%;
-  left: 38px;
+  left: 55px;
   position: absolute;
   width: 2px;
 }
@@ -179,7 +202,8 @@ label {
   text-decoration: none;
 }
 .lessons-list-description{
-  padding-top: .8rem;
+  padding: 1.6rem;
+  font-size: .9rem;
 }
 .collapse-description-line{
   margin: 2.2rem 0 1.6rem 0;
@@ -252,7 +276,7 @@ label {
 .lesson-top-bar{
   background-color: #44A08D;
   /* text-align: center; */
-  padding: .8rem 0;
+  padding: .8rem;
   position: fixed !important;
   z-index: 9;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
@@ -264,7 +288,7 @@ label {
   font-size: 1.1rem;
 }
 .lesson-content{
-  padding-top: 5rem;
+  padding: 5rem 0;
 }
 .lesson-content img {
   max-width: 100%;
@@ -275,7 +299,7 @@ label {
 .lesson-content iframe{
   border-radius: .2rem !important;
   box-shadow: 0 .4rem 1.6rem .095rem rgba(0,0,0,0.25);
-  margin: 1.6rem 0;
+  /* padding: 1.6rem 0; */
 }
 
 .lesson-complete-row{
@@ -285,7 +309,10 @@ label {
 .lesson-complete-btn{
   padding: 1.6rem;
 }
-
+.quiz-card-title{
+  padding: .8rem 0;
+  font-size: 1rem;
+}
 .quiz-card{
   padding: 2rem;
   margin: 4rem 1rem;
@@ -378,8 +405,14 @@ label {
 }
 
 /* Exam */
+.exam-area{
+  margin: 2rem 0;
+}
+
+.exam-title{
+  padding: 1.6rem 2rem;
+}
 .published-exam-card{
-  margin: 4rem 0;
   padding: 2rem;
 }
 
@@ -430,6 +463,94 @@ label {
   font-size: .8rem;
 }
 
+
+/* Assessment */
+.assessment-area{
+  margin: 2rem 0;
+}
+
+.rate-other-area{
+  text-align: end;
+}
+
+.essay-padding {
+  padding: 1.2rem 0;
+}
+
+.essay-card{
+  margin: 1rem 0;
+}
+
+.essay-title-rate {
+  padding: 3.2rem 2rem;
+  text-decoration: none;
+  color: #30415D;
+}
+
+.essay-title-rate:hover {
+  padding: 3.2rem 2rem;
+  text-decoration: none;
+  color: #30415D;
+}
+
+.essay-title{
+  padding: 2.2rem 0 1rem 0;
+}
+
+.question-label{
+  padding: 0 0 1.2rem 0;
+}
+
+.essay-content{
+  padding: 2.2rem;
+}
+
+.essay-rate{
+  padding: 2rem 0;
+}
+
+.rating-stars-color-empty{
+  color: rgba(68, 160, 141, 0.685);
+  font-size: 3rem;
+}
+.rating-stars-color{
+  color: #44A08D;
+  font-size: 3rem;
+}
+
+.essay-comment-card{
+  padding: 1.2rem;
+}
+
+.published-assessment-card{
+  padding: 2rem;
+  margin-bottom: 1.6rem;
+}
+
+
+/* Profile */
+.profile-cpnment{
+  padding: 2rem 0 0 0;
+}
+
+.edit-profile{
+  margin: .8rem 0;
+}
+
+.edit-profile-a{
+  text-decoration: none !important;
+}
+
+.card-body-comment{
+  background: rgb(231, 238, 237);
+  padding: 1.2rem 1.6rem;
+  margin: .4rem;
+}
+
+.date-time-ago{
+  font-size: .8rem;
+  font-weight: 600;
+}
 /* 
 Responsive Media breakpoints
  */

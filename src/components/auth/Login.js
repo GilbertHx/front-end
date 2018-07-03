@@ -6,7 +6,10 @@ import { loginUser, getCurrentUser } from '../../actions/auth_actions';
 class Login extends React.Component {
     handleFormSubmit(values) {
         this.props.loginUser(values, () => {
-            this.props.getCurrentUser()
+            const token = localStorage.getItem('token');
+            if(token){
+                this.props.getCurrentUser(token)
+            }
         });
     }
 

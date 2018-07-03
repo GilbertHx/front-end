@@ -33,9 +33,9 @@ class Footer extends Component {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="col-md-6 align-self-center">
+                            <div className="col-md-6 align-self-center text-right">
                                 <p className="copyright" >
-                                    © 2018 Copyright REG
+                                    © 2018 Copyright REB
                                 </p>
                             </div>
                         </div>

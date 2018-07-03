@@ -17,6 +17,11 @@ import assessment_question_answers_reducers from './assessment_question_answers_
 import exam_marks_reducer from './exam_marks_reducer';
 import assessment_marks_reducer from './assessment_marks_reducer';
 import profile_reducer from './profile_reducer';
+import summary_reducer from './summary_reducer';
+import current_user_reducer from './current_user_reducer';
+import essays_reducers from './essays_reducers';
+import exams_admin_reducers from './exams_admin_reducers';
+import current_user_profile_reducer from './current_user_profile_reducer';
 
 const rootReducer = combineReducers({
     form: formReducer,
@@ -29,6 +34,7 @@ const rootReducer = combineReducers({
     user: profile_reducer,
     quizzes: quizzes_reducer,
     exams: exams_reducer,
+    exams_admin: exams_admin_reducers,
     questions: exam_question_reducer,
     questionResponses: exam_question_answers_reducers,
     completedQuiz: quizzes_completed_reducer,
@@ -37,6 +43,16 @@ const rootReducer = combineReducers({
     assessmentQuestionResponses: assessment_question_answers_reducers,
     examMarks: exam_marks_reducer,
     assessmentMarks: assessment_marks_reducer,
+    summary: summary_reducer,
+    current_user: current_user_reducer,
+    essays: essays_reducers,
+    current_user_profile: current_user_profile_reducer
   });
 
+// const rootReducer = (state, action) => {
+//     if (action.type === UNAUTH_USER) {
+//       state = null
+//     }
+//     return appReducer(state, action)
+//   }
 export default rootReducer;

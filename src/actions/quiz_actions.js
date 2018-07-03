@@ -4,7 +4,7 @@ import {
     FETCH_ALL_QUIZ, CREATE_QUIZ, DELETE_QUIZ, CREATE_QUIZ_COMPLETIONS, FETCH_COMPLETED_QUIZZES, FETCH_SINGLE_QUIZ, CREATE_ANSWER
 } from './types';
 
-import { ROOT_URL, headers } from '../config/api_settings';
+import { ROOT_URL } from '../config/api_settings';
 
 export function fetchAllQuizzes() {
     const request = axios.get(`${ROOT_URL}/api/quiz/list/`);
@@ -19,7 +19,10 @@ export function createQuiz(values) {
         method: 'post',
         url: `${ROOT_URL}/api/quiz/create/`,
         data: values,
-        headers,
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        },
     })
     return {
         type: CREATE_QUIZ,
@@ -31,7 +34,10 @@ export function deleteQuiz(id) {
     axios({
         method: 'delete',
         url: `${ROOT_URL}/api/quiz/${id}/delete`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: DELETE_QUIZ,
@@ -47,7 +53,10 @@ export function quizCompleteOperation(completed, quiz) {
             completed,
             quiz
         },
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: CREATE_QUIZ_COMPLETIONS,
@@ -60,7 +69,10 @@ export function fetchQuizzesCompleted() {
     const request = axios({
         method: 'get',
         url: `${ROOT_URL}/api/quiz/completed/list/`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: FETCH_COMPLETED_QUIZZES,
@@ -73,7 +85,10 @@ export function createAnswer(values) {
         method: 'post',
         url: `${ROOT_URL}/api/quiz/answer/create/`,
         data: values,
-        headers,
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        },
     });
     return {
         type: CREATE_ANSWER,

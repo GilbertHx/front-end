@@ -16,8 +16,8 @@ class AdminAssessmentQuestionResponse extends Component {
                 <li key={response.id} className="row response-answers">
                     <div className="col-9">{response.label}</div>
                     {response.correct === true ?
-                        <div className="true-span col-3 right-algn">True</div>:
-                        <div className="false-span col-3 right-algn">False</div>
+                        <div className="true-span col-3 text-right">True</div>:
+                        <div className="false-span col-3 text-right">False</div>
                     }
                 </li>
             );
@@ -29,10 +29,10 @@ class AdminAssessmentQuestionResponse extends Component {
             return(
                 <div className="admin-exam-question-card" key={question.id}>
                     <div className="row">
-                        <div className="col">
+                        <div className="col-9">
                            <h6 className="">Question: {question.label}</h6>
                         </div>
-                        <div className="col right-algn">
+                        <div className="col-3 text-right">
                             {/* <button className="delete-btn" onClick={this.onDeleteQuestion.bind(this, question.id)}><i className="far fa-trash-alt"></i></button> */}
                         </div>
                     </div>

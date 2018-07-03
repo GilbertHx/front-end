@@ -25,7 +25,7 @@ class HomeBody extends Component {
                             </div>
                         </div>
                         <div className="row align-items-center mission-row">
-                            <div className="col-6 right-algn">
+                            <div className="col-6 text-right">
                                 <p>
                                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, 
                                 eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. 

@@ -2,12 +2,13 @@ import axios from 'axios';
 
 import { 
     CREATE_EXAM, FETCH_EXAMS, FETCH_EXAM_QUESTION, DELETE_EXAM, PUBLISH_EXAM, FETCH_PUBLISHED_EXAMS,
-    CREATE_EXAM_QUESTION, FETCH_QUESTIONS, DELETE_QUESTION, CREATE_EXAM_QUESTION_STATUS, UPDATE_EXAM_QUESTION_STATUS,
+    CREATE_EXAM_QUESTION, FETCH_QUESTIONS, FETCH_EXAM_ADMIN_QUESTION, DELETE_QUESTION, CREATE_EXAM_QUESTION_STATUS, UPDATE_EXAM_QUESTION_STATUS,
     CREATE_RESPONSE, FETCH_QUESTION_RESPONSES,
     CREATE_EXAM_MARK, FETCH_ALL_EXAM_MARKS,
+    EXAM_ERROR,
 } from './types';
 
-import { ROOT_URL, headers } from '../config/api_settings';
+import { ROOT_URL } from '../config/api_settings';
 
 export function fetchExams() {
     const request = axios.get(`${ROOT_URL}/api/exam/`);
@@ -30,7 +31,10 @@ export function createExam(values) {
         method: 'post',
         url: `${ROOT_URL}/api/exam/create/`,
         data: values,
-        headers,
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        },
     });
     return {
         type: CREATE_EXAM,
@@ -45,7 +49,10 @@ export function publishExam(published, id){
         data: {
             published
         },
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: PUBLISH_EXAM,
@@ -56,7 +63,10 @@ export function deleteExam(id) {
     axios({
         method: 'delete',
         url: `${ROOT_URL}/api/exam/${id}/delete`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: DELETE_EXAM,
@@ -69,7 +79,10 @@ export function fetchQuestions() {
     const request = axios({
         method: 'get',
         url: `${ROOT_URL}/api/exam/questions/`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: FETCH_QUESTIONS,
@@ -77,8 +90,32 @@ export function fetchQuestions() {
     };
 }
 
+export function fetchExamAdminQuestions(id) {
+    // const request = axios.get(`${ROOT_URL}/api/exam/admin/detail/${id}`);
+    const request = axios({
+        method: 'get',
+        url: `${ROOT_URL}/api/exam/admin/detail/${id}/`,
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
+    });
+    return {
+        type: FETCH_EXAM_ADMIN_QUESTION,
+        payload: request
+    };
+}
+
 export function fetchExamQuestions(id) {
-    const request = axios.get(`${ROOT_URL}/api/exam/detail/${id}`);
+    // const request = axios.get(`${ROOT_URL}/api/exam/detail/${id}`);
+    const request = axios({
+        method: 'get',
+        url: `${ROOT_URL}/api/exam/detail/${id}/`,
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
+    });
     return {
         type: FETCH_EXAM_QUESTION,
         payload: request
@@ -94,7 +131,10 @@ export function createQuestionStatusQuestion(question) {
             done: false,
             completed: false,
         },
-        headers,
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        },
     });
     return {
         type: CREATE_EXAM_QUESTION_STATUS,
@@ -103,19 +143,28 @@ export function createQuestionStatusQuestion(question) {
 }
 
 export function createExamQuestion(values, exam_id) {
-    const request = axios({
-        method: 'post',
-        url: `${ROOT_URL}/api/exam/question/create/`,
-        data: {
-            exam: exam_id,
-            label: values.label,
-            marks: values.marks
-        },
-        headers,
-    });
-    return {
-        type: CREATE_EXAM_QUESTION,
-        payload: request
+    return function(dispatch) {
+        axios({
+            method: 'post',
+            url: `${ROOT_URL}/api/exam/question/create/`,
+            data: {
+                exam: exam_id,
+                label: values.label,
+                marks: values.marks
+            },
+            headers :{
+                Accept: 'application/json',
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        }).then(response => {
+            dispatch({
+                type: CREATE_EXAM_QUESTION,
+                payload: response
+            });
+        }).catch((err) => {
+            console.log(err.response.data.label[0])
+            // dispatch(examError(err.response.data.label[0]));
+        });
     }
 }
 
@@ -123,7 +172,10 @@ export function deleteQuestion(id) {
     axios({
         method: 'delete',
         url: `${ROOT_URL}/api/exam/question/${id}/delete`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: DELETE_QUESTION,
@@ -149,7 +201,10 @@ export function createQuestionResponse(values, question_id) {
             label: values.label,
             correct: values.correct
         },
-        headers,
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        },
     });
     return {
         type: CREATE_RESPONSE,
@@ -157,32 +212,66 @@ export function createQuestionResponse(values, question_id) {
     }
 }
 
-export function updateQuestionStatusQuestion(completed, done, question) {
-    const request = axios({
-        method: 'post',
-        url: `${ROOT_URL}/api/exam/question/status/create/`,
-        data: {
-            completed,
-            question,
-            done
-        },
-        headers
-    });
-    return {
-        type: UPDATE_EXAM_QUESTION_STATUS,
-        payload: request
+export function updateQuestionStatusQuestion(completed, done, question, exam) {
+    return function(dispatch) {
+        axios({
+            method: 'post',
+            url: `${ROOT_URL}/api/exam/question/status/create/`,
+            data: {
+                completed,
+                question,
+                done
+            },
+            headers :{
+                Accept: 'application/json',
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            }
+        })
+        .then(response => {
+            dispatch({ 
+                type: UPDATE_EXAM_QUESTION_STATUS,
+                payload: response
+             });
+        })
+        .then(() => {
+            dispatch(examMarkCreate(exam));
+        });
     }
+
+    // const request = axios({
+    //     method: 'post',
+    //     url: `${ROOT_URL}/api/exam/question/status/create/`,
+    //     data: {
+    //         completed,
+    //         question,
+    //         done
+    //     },
+    //     headers :{
+    //         Accept: 'application/json',
+    //         Authorization: `Token ${localStorage.getItem('token')}`,
+    //     }
+    // })
+    // .then(() => {
+    //     callback()
+    // });
+    // return {
+    //     type: UPDATE_EXAM_QUESTION_STATUS,
+    //     payload: request
+    // }
 }
 
-export function examMarkCreate(exam, callback) {
+export function examMarkCreate(exam) {
     const request = axios({
         method: 'post',
         url: `${ROOT_URL}/api/exam/mark/create/`,
         data: {
             exam
         },
-        headers
-    }).then(() => callback());
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
+    });
     return {
         type: CREATE_EXAM_MARK,
         payload: request
@@ -193,11 +282,21 @@ export function fetchAllExamMarks() {
     const request = axios({
         method: 'get',
         url: `${ROOT_URL}/api/exam/marks/admin/`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
 
     return {
         type: FETCH_ALL_EXAM_MARKS,
         payload: request
     }
+}
+
+export function examError(error) {
+    return {
+        type: EXAM_ERROR,
+        payload: error
+    }; 
 }

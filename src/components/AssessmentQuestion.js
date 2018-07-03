@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAllAssessmentQuestions, fetchSingleAssessmentQuestions, updateQuestionStatusQuestion, assessmentMarkCreate, createAssessmentQuestionEssayResponse } from '../actions/assessment_actions';
 import { reset, Field, reduxForm } from 'redux-form';
-import Dropzone from 'react-dropzone';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const Checkbox = ({ 
     input, label, disabled 
@@ -15,35 +16,60 @@ const Checkbox = ({
             type="checkbox" 
             disabled={disabled} 
             checked={input.value} 
-            {...input} /> {label}
+            {...input} 
+            onChange={input.onChange}
+            onBlur={input.onBlur}/> {label}
           <span className="checkmark" ></span>
         </label>
       </div>
     );
 
-const renderDropzoneInput = (field) => {
-        const files = field.input.value;
-        return (
-          <div className="form-group">
-            {/* <label>Audio</label> */}
-            <Dropzone
-              className="form-control"
-              name={field.name}
-              onDrop={( filesToUpload, e ) => field.input.onChange(filesToUpload)}
-            >
-              <div>Try dropping your essay here, or click to select one to upload.</div>
-            </Dropzone>
-            {field.meta.touched &&
-              field.meta.error &&
-              <span className="error">{field.meta.error}</span>}
-            {files && Array.isArray(files) && (
-              <ul>
-                { files.map((file, i) => <li key={i}>{file.name}</li>) }
-              </ul>
-            )}
+const renderField = ({
+        input,
+        label,
+        type,
+        meta: { touched, error }
+      }) => (
+        <div className="form-group">
+          {/* <label>{label}</label> */}
+          <div>
+            <input 
+                className="form-control"
+                {...input} placeholder={label} type={type} />
+            {touched && error && <span className="text-danger">{error}</span>}
           </div>
-        );
-      }
+        </div>
+      );
+    
+const modules = {
+    toolbar: [
+        [{ 'header': [1, 2, 3, 4, 5,  false] }],
+        ['bold', 'italic', 'underline','strike', 'blockquote', 'code-block'],
+        [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+        [{ 'color': [] }, { 'background': [] }],
+        ['link', 'image'],
+        ['clean']
+    ],
+    };
+
+function renderQuill({ input }) {
+    
+    return (
+        <ReactQuill
+        theme="snow"
+        modules={modules}
+        {...input}
+        onChange={(newValue, delta, source) => {
+            if (source === 'user') {
+            input.onChange(newValue);
+            }
+        }}
+        onBlur={(range, source, quill) => {
+            input.onBlur(quill.getHTML());
+        }}
+        />
+    );
+    }
 
 class AssessmentQuestion extends Component {
     componentDidMount() {
@@ -52,11 +78,17 @@ class AssessmentQuestion extends Component {
         this.props.fetchSingleAssessmentQuestions(assessment_id)
     }
 
+    state = {
+        answer_fiels: ""
+    }
+
     onSubmit(question_id, values) {
         let r = []
         for (let [k, v] of Object.entries(values)) {
             r.push({label: k, correct: v})
         }
+
+        console.log(values);
 
         let _correct_answers = this.props.assessmentQuestions[question_id].responses
         let _submitted_answers = r
@@ -102,6 +134,7 @@ class AssessmentQuestion extends Component {
             }
         }
 
+        console.log(completed)
         this.props.updateQuestionStatusQuestion(completed, true, question_id)
         this.props.assessmentMarkCreate(this.props.assessment_id)
     }
@@ -113,7 +146,7 @@ class AssessmentQuestion extends Component {
     renderAnswers(responses){
         return _.map(responses, (response) => {
             return(
-                <div key={response.id}>
+                <div key={response.id} className="form-group">
                     <Field
                         name={response.label}
                         label={response.label}
@@ -129,45 +162,65 @@ class AssessmentQuestion extends Component {
         return(
             <div>
                 <Field
-                    name="essay"
-                    component={renderDropzoneInput}
+                    name="title"
+                    type="text"
+                    component={renderField}
+                    label="Essay Title"
                 />
+                <div className="form-group"> 
+                    <div>
+                        <Field
+                            name="essay"
+                            component={renderQuill}
+                        />
+                    </div>
+                </div>
             </div>
         );
     }
 
+    Rand(NewDictionary) {
+        const keys = Object.keys(NewDictionary);
+        let i = keys.length;
+        const j = Math.floor(Math.random() * i);
+        console.log("Rand Called");
+        return NewDictionary[keys[j]];
+    }
+
     renderQuestion(){
         const { assessmentQuestions } = this.props
-        if (assessmentQuestions[Object.keys(assessmentQuestions)[0]]) {
-            const question = assessmentQuestions[Object.keys(assessmentQuestions)[0]]
-            const { handleSubmit, pristine, submitting } = this.props
-            return (
-                <div className="published-question-area" key={question.id}>
-                    <h6>{question.label}</h6>
-                    {
-                        question.responses.length > 0 ?
-                        <form onSubmit={handleSubmit(this.onSubmit.bind(this, question.id))}>
-                            <ul>
-                                {this.renderAnswers(question.responses)}
-                            </ul>
-                            <div className="right-algn">
-                                <button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
-                            </div>
-                        </form> :
-                        <form onSubmit={handleSubmit(this.onEssaySubmit.bind(this, question.id))}>
-                            <ul>
-                                {this.renderEssaySubmit()}
-                            </ul>
-                            <div className="right-algn">
-                                <button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
-                            </div>
-                        </form>
-
-                    }
-                    
-                </div>
-            )
+        
+        console.log(assessmentQuestions)
+        const question = this.Rand(assessmentQuestions);
+        const { handleSubmit, pristine, submitting } = this.props
+        if (!question) {
+            return <div>Loading..</div>
         }
+        
+        return (
+            <div className="published-question-area" key={question.id}>
+                <h6 className="question-label">{question.label}</h6>
+                {
+                    question.is_essay === false ?
+                    <form onSubmit={handleSubmit(this.onSubmit.bind(this, question.id))}>
+                        <ul>
+                            {this.renderAnswers(question.responses)}
+                        </ul>
+                        <div className="text-right">
+                            <button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
+                        </div>
+                    </form> :
+                    <form onSubmit={handleSubmit(this.onEssaySubmit.bind(this, question.id))}>
+                        <ul className="essay-padding">
+                            {this.renderEssaySubmit()}
+                        </ul>
+                        <div className="text-right">
+                            <button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
+                        </div>
+                    </form>
+                }
+            </div>
+        )
     }
 
     render() {
@@ -177,6 +230,17 @@ class AssessmentQuestion extends Component {
             </div>
         );
     }
+}
+
+const validate = values => {
+    const errors = {}
+    if (!values.essay) {
+      errors.essay = 'Required'
+    }
+    if (!values.title) {
+        errors.title = 'Required'
+      }
+    return errors
 }
 
 function mapStateToProprs(state) {
@@ -190,6 +254,7 @@ const afterSubmit = (result, dispatch) =>
 
 export default reduxForm({
     form: 'checkboxassessment',
+    validate,
     onSubmitSuccess: afterSubmit,
 })(
     connect(mapStateToProprs, { fetchAllAssessmentQuestions, fetchSingleAssessmentQuestions, updateQuestionStatusQuestion, assessmentMarkCreate, createAssessmentQuestionEssayResponse })(AssessmentQuestion)

@@ -16,8 +16,8 @@ class AdminExam extends Component {
                 <li key={response.id} className="row response-answers">
                     <div className="col-9">{response.label}</div>
                     {response.correct === true ?
-                        <div className="true-span col-3 right-algn">True</div>:
-                        <div className="false-span col-3 right-algn">False</div>
+                        <div className="true-span col-3 text-right">True</div>:
+                        <div className="false-span col-3 text-right">False</div>
                     }
                 </li>
             );
@@ -60,11 +60,11 @@ class AdminExam extends Component {
                         <div className="row">
                             {
                                 exam.published === true ?
-                                <div className="col right-algn">
-                                    <button className="approved-btn" onClick={this.onUnApproved.bind(this, exam.id)}><i className="far fa-check-circle fa-2x"></i></button>
+                                <div className="col text-right">
+                                    <button className="approved-btn" onClick={this.onUnApproved.bind(this, exam.id)}><span className="character-icon-normal">&#128505;</span></button>
                                 </div> :
-                                <div className="col right-algn">
-                                    <button className="not-approved-btn" onClick={this.onApproved.bind(this, exam.id)}><i className="far fa-check-circle fa-2x"></i></button>
+                                <div className="col text-right">
+                                    <button className="not-approved-btn" onClick={this.onApproved.bind(this, exam.id)}><span className="character-icon-normal">&#128505;</span></button>
                                 </div>
                             }
                         </div>
@@ -73,8 +73,8 @@ class AdminExam extends Component {
                             {this.renderQuestion(exam.questions)}
                         </Link>
                         <div className="row">
-                            <div className="col right-algn">
-                                <button className="delete-btn" onClick={this.onDeleteExam.bind(this, exam.id)}><i className="far fa-trash-alt"></i></button>
+                            <div className="col text-right">
+                                <button className="delete-btn" onClick={this.onDeleteExam.bind(this, exam.id)}><span className="character-icon-normal">&#128465;</span></button>
                             </div>
                         </div>
                     </div>
@@ -95,7 +95,7 @@ class AdminExam extends Component {
 
 function mapStateToProps(state) {
     return {
-        exams: state.exams
+        exams: state.exams_admin
     };
 }
 

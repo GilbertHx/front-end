@@ -22,8 +22,8 @@ class AdminQuizzes extends Component {
                 <li key={answer.id} className="row response-answers">
                     <div className="col-9">{answer.label}</div>
                     {answer.correct === true ?
-                        <div className="true-span col-3 right-algn">True</div>:
-                        <div className="false-span col-3 right-algn">False</div>
+                        <div className="true-span col-3 text-right">True</div>:
+                        <div className="false-span col-3 text-right">False</div>
                     }
                 </li>
             ); 
@@ -41,10 +41,10 @@ class AdminQuizzes extends Component {
                         <div className="card admin-quiz-card">
                             <div className="row">
                                 <div className="col-10">
-                                    <h5>{quiz.lesson}</h5>
+                                    <h5>Lesson: {quiz.lesson_title}</h5>
                                 </div>
-                                <div className="col-2 right-algn">
-                                    <button className="delete-btn" onClick={this.onDelete.bind(this, quiz.id)}> <i className="far fa-trash-alt"></i></button>
+                                <div className="col-2 text-right">
+                                    <button className="delete-btn" onClick={this.onDelete.bind(this, quiz.id)}><span className="character-icon-normal">&#128465;</span></button>
                                 </div>
                             </div>
                             

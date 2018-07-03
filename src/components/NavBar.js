@@ -1,20 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchCurrentUserProfile } from '../actions/users_actions';
 
 
 class NavBAr extends React.Component {
+  componentDidMount() {
+    if (this.props.authenticated) {
+      this.props.fetchCurrentUserProfile();
+    }
+  }
   
   renderLinks() {
+    const { currentUser } = this.props
     if (this.props.authenticated) {
       return[
         <li className="nav-item" key={1}>
           <Link className="nav-link" to="/exam">Exam</Link>
         </li>,
-        // <li className="nav-item" key={2}>
-        //   <Link className="nav-link" to="/profile">Profile</Link>
-        // </li>,
         <li className="nav-item" key={2}>
+          {
+            currentUser.profile ?
+            <Link className="nav-link" to="/profile/1">Me({ currentUser.profile.first_name })</Link> :
+            <Link className="nav-link" to="/profile/1">Profile</Link>
+          }
+        </li>,
+        <li className="nav-item" key={3}>
           <Link className="nav-link" to="/logout">Logout</Link>
         </li>
       ]
@@ -32,7 +43,7 @@ class NavBAr extends React.Component {
       <div className="nav-bar-cmpnt" >
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light main-navbar">
-            <Link className="navbar-brand" to="/">REG</Link>
+            <Link className="navbar-brand" to="/">REB</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -54,8 +65,9 @@ class NavBAr extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
+    currentUser: state.current_user_profile
   };
 }
 
-export default connect(mapStateToProps)(NavBAr);
+export default connect(mapStateToProps, { fetchCurrentUserProfile })(NavBAr);

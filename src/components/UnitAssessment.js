@@ -15,14 +15,24 @@ class UnitAssessment extends Component {
         this.props.retakeAssessment(assessment_id)
     }
     renderAssessmentCard() {
+        const { id } = this.props.match.params;
         return _.map(this.props.assessments, (assessment) => {
             return(
-                <div key={assessment.id}>
-                    <h5 className="exam-card-title">{assessment.label}</h5>
-                    <div className="card published-exam-card">
+                <div key={assessment.id} className="assessment-area">
+                    <div className="card green-bg">
+                        <h5 className="exam-title">{assessment.label}</h5>
+                    </div>
+                    <div className="card published-assessment-card">
                         <AssessmentQuestion assessment_id={assessment.id}/>
                     </div>
-                    <button className="btn btn-primary" onClick={this.onRetake.bind(this, assessment.id)}>Reload</button>
+                    <div className="row">
+                        <div className="col-6">
+                            <button className="btn btn-primary" onClick={this.onRetake.bind(this, assessment.id)}>Retake</button>
+                        </div>
+                        <div className="col-6 rate-other-area text-right">
+                            <Link to={`/unit/${id}/assessment/essays`}>Review Others</Link>
+                        </div>
+                    </div>
                 </div>
             );
         });
@@ -39,7 +49,7 @@ class UnitAssessment extends Component {
 
 function mapStateToProprs(state) {
     return {
-        assessments: state.assessments
+        assessments: state.assessments,
     };
 }
 

@@ -3,19 +3,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 export default function(ComposedComponent) {
-  class Authentication extends Component {
+  class IsStaff extends Component {
     static contextTypes = {
       router: PropTypes.object,
     }
 
     componentWillMount() {
-      if (!this.props.authenticated || !this.props.is_staff) {
+      if (this.props.is_staff !== true) {
         this.context.router.history.push('/login');
       }
     }
 
     componentWillUpdate(nextProps) {
-      if (!nextProps.authenticated || !this.props.is_staff) {
+      if (this.props.is_staff !== true) {
         this.context.router.history.push('/login');
       }
     }
@@ -32,5 +32,5 @@ export default function(ComposedComponent) {
         };
   }
 
-  return connect(mapStateToProps)(Authentication);
+  return connect(mapStateToProps)(IsStaff);
 }

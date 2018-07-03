@@ -9,7 +9,7 @@
 
 /* NewLesson.js and NewCourse.js */
 form .admin-clear-btn {
-    margin-left: .8rem;
+    margin-right: .8rem;
   }
   
 .btn-new{
@@ -31,28 +31,28 @@ form .admin-clear-btn {
     border-radius: 50px;
     padding: .2rem 0;
 }
-.total-users{
+.summary-darkkhaki{
     background-color: rgba(189, 183, 107, 0.3);
     color: darkkhaki;
     border: .1rem solid darkkhaki;
     
 }
-.total-graduates{
+.summary-darkcyan{
     background-color: rgba(0, 139, 139, 0.3);
     color: darkcyan;
     border: .1rem solid darkcyan;
 }
-.total-ungraduates{
+.summary-coral{
     background-color: rgba(255, 127, 80, 0.3);
     color: coral;
     border: .1rem solid coral;
 }
-.total-in-class{
+.summary-skyblue{
     background-color: rgba(135, 207, 235, 0.3);
     color: skyblue;
     border: .1rem solid skyblue;
 }
-.total-target{
+.summary-grey{
     background-color: rgba(128, 128, 128, 0.3);
     color: grey;
     border: .1rem solid grey;
@@ -85,6 +85,32 @@ form .admin-clear-btn {
     border-color: rgba(0, 139, 139, 0.3);
 }
 
+.table td {
+    vertical-align: middle;
+}
+
+
+/* Profile */
+.admin-profile{
+    margin: 1.6rem 0;
+}
+.essay-card{
+    transition: all .3s;
+}
+
+.essay-card:hover{
+    box-shadow: 0 .4rem 1.6rem .075rem rgba(0,0,0,0.15);
+    transform: translateY(-.2rem) scale(1.01);
+}
+
+.staff-activate-row {
+    padding: .8rem 0;
+}
+
+.graduate-btn {
+    padding: 1.6rem 0;
+}
+
 /* New Course */
 .new-card{
     padding: 1rem 1.6rem;
@@ -103,6 +129,14 @@ form .admin-clear-btn {
 
 .delete-btn:hover {
     color: #DD3333;
+}
+
+.hr-line{
+    margin: 1.6rem 0;
+}
+
+.new-comment{
+    margin: .8rem 0
 }
 
 /* Quiz */
@@ -158,16 +192,12 @@ form .admin-clear-btn {
 }
 
 .exam-card-title{
-    margin: 1.6rem 0;
+    margin: 1rem 0;
     text-align: center;
 }
 
 .admin-exam-question-card{
-    padding: 1.6rem 0;
-}
-
-.right-algn{
-    text-align: end;
+    padding: 1rem 0;
 }
 
 .approved-btn{
@@ -241,17 +271,7 @@ form .admin-clear-btn {
     font-weight: 600;
 }
 
-.staff-activate-row{
-    padding: 2rem 0;
-}
 
-.activate-col{
-
-}
-
-.staff-col{
-    text-align: end;
-}
 
 /* 
 Responsive Media breakpoints

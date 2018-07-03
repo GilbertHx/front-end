@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 import { 
-    FETCH_LESSONS, CREATE_LESSON, FETCH_SESSION_LESSONS, FETCH_LESSON, DELETE_LESSON, FETCH_COMPLETED_LESSON, CREATE_LESSON_COMPLETIONS
+    FETCH_LESSONS, CREATE_LESSON, EDIT_LESSON, FETCH_SESSION_LESSONS, FETCH_LESSON, DELETE_LESSON, FETCH_COMPLETED_LESSON, CREATE_LESSON_COMPLETIONS
 } from './types';
 
-import { ROOT_URL, headers } from '../config/api_settings';
+import history from '../utils/history';
+import { ROOT_URL } from '../config/api_settings';
 
 
 export function fetchLessons() {
@@ -17,22 +18,60 @@ export function fetchLessons() {
 
 export function createLesson(values) {
     let formData = new FormData();
-    formData.append('audio', values.audio[0], values.audio[0].name);
+    if(values.audio != undefined){
+        formData.append('audio', values.audio[0], values.audio[0].name);
+    }
     formData.append('title', values.title);
     formData.append('session', values.session);
     formData.append('lesson_index', values.lesson_index);
     formData.append('description', values.description);
     formData.append('content', values.content);
-    formData.append('video_url', values.video_url);
+    if(values.video_url != undefined){
+        formData.append('video_url', values.video_url);
+    }
     
     const request = axios({
         method: 'post',
         url: `${ROOT_URL}/api/course/lesson/create/`,
         data: formData,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
       });
     return {
         type: CREATE_LESSON,
+        payload: request
+    };
+}
+
+export function editLesson(values, id) {
+    let formData = new FormData();
+    if(values.audio != undefined){
+        formData.append('audio', values.audio[0], values.audio[0].name);
+    }
+    formData.append('title', values.title);
+    formData.append('session', values.session);
+    formData.append('lesson_index', values.lesson_index);
+    formData.append('description', values.description);
+    formData.append('content', values.content);
+    if(values.video_url != undefined){
+        formData.append('video_url', values.video_url);
+    }
+    
+    const request = axios({
+        method: 'put',
+        url: `${ROOT_URL}/api/course/lesson/${id}/edit/`,
+        data: formData,
+        headers : {
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
+      }).then(() => {
+        history.push('/admin/lessons');
+      });
+    return {
+        type: EDIT_LESSON,
         payload: request
     };
 }
@@ -57,7 +96,10 @@ export function deleteLesson(id) {
     axios({
         method: 'delete',
         url: `${ROOT_URL}/api/course/lesson/${id}/delete`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: DELETE_LESSON,
@@ -69,7 +111,10 @@ export function fetchLessonsCompleted() {
     const request = axios({
         method: 'get',
         url: `${ROOT_URL}/api/course/completed/lessons/`,
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     });
     return {
         type: FETCH_COMPLETED_LESSON,
@@ -85,7 +130,10 @@ export function lessonCompleteOperation(completed, lesson, callback) {
             completed,
             lesson
         },
-        headers
+        headers :{
+            Accept: 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`,
+        }
     }).then(() => callback());
     return {
         type: CREATE_LESSON_COMPLETIONS,
