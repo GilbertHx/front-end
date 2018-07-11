@@ -14,10 +14,12 @@ const HomeJumbotron = (props) => {
               <div className="row align-items-center">
                 <div className="col-md-6">
                   <div className="jumbo-text" >
-                    <h1 className="display-3">Hello, world!</h1>
-                    <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
+                    <h1 className="display-6 first-intro">Online CPD Program for teacher on implementation of Competence Base Curriculum</h1>
+                    <p className="lead">Teachers are the most important actors in implementing the new curriculum. Therefore it is
+                      essential that teachers are well prepared and supported throughout implementation of the new
+                      curriculum.</p>
                     <hr className="my-2" />
-                    <p>It uses utility classes for typgraphy and spacing to space content out within the larger container.</p>
+                    <p>This online course have been designed to support all teachers from Pre-primary to Secondary School.</p>
                   </div>
                 </div>
               <div className="col-md-6">
@@ -26,10 +28,12 @@ const HomeJumbotron = (props) => {
               </div> :
               <div className="col-md-8 offset-md-1">
                 <div className="jumbo-text" >
-                  <h1 className="display-3">Hello, world!</h1>
-                  <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
+                  <h1 className="display-6">Online CPD Program for teacher on implementation of Competence Base Curriculum</h1>
+                  <p className="lead">Teachers are the most important actors in implementing the new curriculum. Therefore it is
+                    essential that teachers are well prepared and supported throughout implementation of the new
+                    curriculum.</p>
                   <hr className="my-2" />
-                  <p>It uses utility classes for typgraphy and spacing to space content out within the larger container.</p>
+                  <p>This online course have been designed to support all teachers from Pre-primary to Secondary School.</p>
                 </div>
               </div>
             }

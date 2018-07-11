@@ -13,7 +13,8 @@ class AdminEssay extends Component {
     renderReviews(reviews){
         return _.map(reviews, review => {
             return(
-                <div key={review.id} className="card essay-comment-card">
+                <div key={review.id} className="card">
+                    <div className="card-body-comment">
                     <Rating
                         emptySymbol={<span className="">&#10032;</span>}
                         fullSymbol={<span className="">&#x272E;</span>}
@@ -21,6 +22,7 @@ class AdminEssay extends Component {
                         readonly
                     />
                     <p>{review.comment}</p>
+                    </div>
                 </div>
             );
         });
@@ -29,14 +31,15 @@ class AdminEssay extends Component {
         const { essays } = this.props
         return (
             <div className="container">
-                <h5 className="essay-title">{essays.title}</h5>
-                <div className="card">
-                    <p className="essay-content" dangerouslySetInnerHTML={{__html:essays.essay}}></p>
+                <div className="admin-profile">
+                    <h5 className="">{essays.title}</h5>
+                    <div className="card">
+                        <p className="essay-content" dangerouslySetInnerHTML={{__html:essays.essay}}></p>
+                    </div>
+                    {
+                        this.renderReviews(essays.reviews)
+                    }
                 </div>
-                {
-                    this.renderReviews(essays.reviews)
-                }
-                
             </div>
         );
     }

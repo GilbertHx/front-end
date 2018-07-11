@@ -137,6 +137,7 @@ ReactDOM.render(
                 <Route exact path="/exam" component={WithFooter(WithNavBar(RequireAuth(Exam)))}/>
                 <Route exact path="/profile/:id" component={WithFooter(WithNavBar(RequireAuth(Profile)))}/>
                 <Route exact path="/profile/:id/edit" component={WithFooter(WithNavBar(RequireAuth(EditProfile)))}/>
+                <Route exact path="/profile/:id/essay" component={WithFooter(WithNavBar(RequireAuth(AdminEssay)))} />
             </div>
         </Router>
     </Provider>

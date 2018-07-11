@@ -43,7 +43,10 @@ class NavBAr extends React.Component {
       <div className="nav-bar-cmpnt" >
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light main-navbar">
-            <Link className="navbar-brand" to="/">REB</Link>
+            <Link className="navbar-brand" to="/">
+              <img src="http://127.0.0.1:8000/media/logo.jpg" className="logo-img"/>
+              <span className="logo-txt"> Online Course</span>
+            </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>

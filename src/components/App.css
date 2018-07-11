@@ -13,6 +13,14 @@ label {
   font-weight: 600;
 }
 
+.logo-img{
+  height: 2.8rem;
+}
+
+.logo-txt{
+  font-weight: bold;
+  color: #44A08D;
+}
 .character-icon-normal{
   font-size: 1.8rem;
   padding: 0;
@@ -56,6 +64,14 @@ label {
   padding: 0.5rem 0rem !important;
 }
 
+.first-intro{
+  font-size: 2.2rem;
+}
+
+.come-back-soon{
+  color: #44A08D;
+  padding: 4rem;
+}
 /* Unit */
 .units-cpnment{
   padding: 2rem 0 0 0;

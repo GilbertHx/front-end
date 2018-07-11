@@ -49,7 +49,10 @@ class ExamQuestion extends Component {
             r.push({label: k, correct: v})
         }
 
-        let _correct_answers = this.props.questions[question_id].responses
+        let _c_answers = _.mapKeys(this.props.questions, 'id');
+        
+        let _correct_answers = _c_answers[question_id].responses
+
         let _submitted_answers = r
 
         var submitted_answers = _submitted_answers.filter(function(submitted_answer){
@@ -106,7 +109,7 @@ class ExamQuestion extends Component {
 
     renderQuestion(){
         const { questions } = this.props
-        const question = this.Rand(questions);
+        const question = questions[Object.keys(questions)[0]];
         
         const { handleSubmit, pristine, submitting } = this.props
         if (!question) {

@@ -26,7 +26,7 @@ class Profile extends Component {
             return _.map(essays, essay => {
                 return(
                     <div key={essay.id} className="card essay-card col-sm-6">
-                        <Link to={`/admin/profile/essay/${essay.id}`} className="essay-title-rate" >
+                        <Link to={`/profile/${essay.id}/essay`} className="essay-title-rate" >
                             <h5>{essay.title}</h5>
                         </Link>
                     </div>
@@ -215,8 +215,8 @@ class Profile extends Component {
                 {
                     user.essay_submitted !== undefined && user.essay_submitted.length > 0 ?
                     <div>
-                    <hr className="marks-title" />
-                    <div className="marks-title">Sumitted Essays</div>
+                    <hr className="hr-line" />
+                    <h5>Sumitted Essays </h5>
                     <div>
                         {this.renderSubmittedEssays(user.essay_submitted)}
                     </div>

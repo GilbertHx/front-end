@@ -7,14 +7,20 @@ export default function(state = {}, action){
             return _.mapKeys(action.payload.data.questions, 'id');
         case FETCH_SINGLE_ASSESSMENT_QUESTION:
             let questions = action.payload.data.questions
-            var undoneQuestions = questions.filter(function(obj){
+            var undoneQuestions = questions.filter(function(obj) {
                 if (obj.done[0] !== undefined){
                     return obj.done[0].done === false
                 }else {
                     return obj
                 }
             })
-            return _.mapKeys(undoneQuestions, 'id');
+            return undoneQuestions
+        case UPDATE_ASSESSMENT_QUESTION_STATUS:
+            let index = state.findIndex((x) => x.id === action.payload.data.question);
+            return [
+                ...state.slice(0, index),
+                ...state.slice(index + 1)
+            ]
         case CREATE_ASSESSMENT_QUESTION:
             return {...state, [action.payload.data.id]: action.payload.data};
         case DELETE_ASSESSMENT_QUESTION:

@@ -78,19 +78,15 @@ class AssessmentQuestion extends Component {
         this.props.fetchSingleAssessmentQuestions(assessment_id)
     }
 
-    state = {
-        answer_fiels: ""
-    }
-
     onSubmit(question_id, values) {
         let r = []
         for (let [k, v] of Object.entries(values)) {
             r.push({label: k, correct: v})
         }
 
-        console.log(values);
-
-        let _correct_answers = this.props.assessmentQuestions[question_id].responses
+        let _c_answers = _.mapKeys(this.props.assessmentQuestions, 'id');
+        
+        let _correct_answers = _c_answers[question_id].responses
         let _submitted_answers = r
 
         var submitted_answers = _submitted_answers.filter(function(submitted_answer){
@@ -190,8 +186,9 @@ class AssessmentQuestion extends Component {
     renderQuestion(){
         const { assessmentQuestions } = this.props
         
-        console.log(assessmentQuestions)
-        const question = this.Rand(assessmentQuestions);
+        // console.log(assessmentQuestions);
+        const question = assessmentQuestions[Object.keys(assessmentQuestions)[0]];
+        // console.log(question)
         const { handleSubmit, pristine, submitting } = this.props
         if (!question) {
             return <div>Loading..</div>

@@ -12,7 +12,13 @@ export default function(state = {}, action){
                         return obj
                     }
                 })
-            return _.mapKeys(undoneQuestions, 'id');
+            return undoneQuestions;
+        case UPDATE_EXAM_QUESTION_STATUS:
+            let index = state.findIndex((x) => x.id === action.payload.data.question);
+            return [
+                ...state.slice(0, index),
+                ...state.slice(index + 1)
+            ]
         case FETCH_EXAM_ADMIN_QUESTION:
             return _.mapKeys(action.payload.data.questions, 'id');
         case CREATE_EXAM_QUESTION:
