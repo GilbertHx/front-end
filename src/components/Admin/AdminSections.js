@@ -28,12 +28,12 @@ class AdminSections extends Component {
             <div>
                 <NewSection />
                 <div className="card table-card">
-                    <h4 className="table-title">All Sections</h4>
+                    <h4 className="table-title">All Sessions</h4>
                     <div>
                         <table className="table table-bordered table-striped">
                         <thead className="thead-light">
                             <tr>
-                            <th scope="col">Section Title</th>
+                            <th scope="col">Session Title</th>
                             <th scope="col">Lessons Count</th>
                             <th scope="col">Delete</th>
                             </tr>

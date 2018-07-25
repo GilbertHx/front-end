@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 class HomeBody extends Component {
     render() {
         return (
-            <div className="container">
-                <div className="home-body-area">
+            <div className="container"> 
+                <div className="home-body-area algn-center">
                     <h4 className="">Backgroung</h4>
                     <p className="">
                         The Ministry of Education (MINEDUC), through Rwanda Education Board (REB), has

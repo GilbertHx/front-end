@@ -33,7 +33,7 @@ class Signup extends Component {
                         <div className="col-sm-6">
                             <fieldset className="form-group">
                                 {/* <label htmlFor="username">Username</label> */}
-                                <Field placeholder="Username" name="username" component="input" type="text" className="form-control" />
+                                <Field placeholder="Reg Number" name="username" component="input" type="text" className="form-control" />
                             </fieldset>                    
                         </div>
                         <div className="col-sm-6">

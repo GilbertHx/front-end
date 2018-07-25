@@ -23,12 +23,12 @@ class Dashboard extends Component {
                         </div> 
                     </div>
                 </div>
-                <div className="table-users">
+                {/* <div className="table-users">
                     <div className="card table-card">
                         <h4 className="table-title">Recent Users</h4>
                         <Table />
                     </div>
-                </div>
+                </div> */}
             </div>
         );
     }

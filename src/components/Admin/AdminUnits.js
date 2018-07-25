@@ -34,7 +34,7 @@ class AdminSessions extends Component {
                         <thead className="thead-light">
                             <tr>
                             <th scope="col">Unit Title</th>
-                            <th scope="col">Sections Count</th>
+                            <th scope="col">Sessions Count</th>
                             <th scope="col">Delete</th>
                             </tr>
                         </thead>

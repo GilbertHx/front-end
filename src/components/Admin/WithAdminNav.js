@@ -21,7 +21,7 @@ export default function(NavComponent) {
                             <Link to="/admin/units" className="nav-link">Units</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/admin/sections" className="nav-link">Sections</Link>
+                            <Link to="/admin/sections" className="nav-link">Sessions</Link>
                         </li>
                         <li className="nav-item">
                             <Link to="/admin/lessons" className="nav-link">Lessons</Link>

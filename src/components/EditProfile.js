@@ -80,7 +80,7 @@ class EditProfile extends Component {
                                     name="birth_date"
                                     type="text"
                                     component={renderField}
-                                    label="Birthday"
+                                    label="Birthday (YYYY-MM-DD)"
                                 />
                             </div>
                             <div className="col-md-6">

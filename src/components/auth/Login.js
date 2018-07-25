@@ -33,7 +33,7 @@ class Login extends React.Component {
                     <p>Your account allow you access to all things: courses, exercises and more!</p>
                     <fieldset className="form-group">
                         {/* <label htmlFor="username">Username</label> */}
-                        <Field placeholder="Username" name="username" component="input" type="text" className="form-control" />
+                        <Field placeholder="Reg Number" name="username" component="input" type="text" className="form-control" />
                     </fieldset>                    
                     {/* <fieldset className="form-group">
                         <Field placeholder="Email" name="email" component="input" type="email" className="form-control" autoComplete='email' />

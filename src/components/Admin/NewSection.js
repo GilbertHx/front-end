@@ -82,7 +82,7 @@ class NewSection extends Component {
         return (
             <div className="card new-card">
                 <div>
-                    <h4>New Section</h4>
+                    <h4>New Session</h4>
                     <form onSubmit={handleSubmit(this.onSubmit.bind(this))} method="POST">
                         <div className="row">
                             <div className="col-lg-12">
