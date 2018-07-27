@@ -82,16 +82,23 @@ export function authError(error) {
 
 export function logoutUser() {
     return function(dispatch) {
-        axios.post(`${ROOT_URL}/api/auth/logout/`)
-            .then(response => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('is_staff');
-                dispatch({ type: UNAUTH_USER });
-            })
-            .catch((err) => {
-                dispatch(authError("BAD LOGOUT"));
-                // dispatch(authError(err.response.data.non_field_errors));
-            });
+        axios({ 
+            method: 'post',
+            url: `${ROOT_URL}/api/auth/logout/`,
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            }
+        })
+        .then(response => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('is_staff');
+            dispatch({ type: UNAUTH_USER });
+        })
+        .catch((err) => {
+            dispatch(authError("BAD LOGOUT"));
+            // dispatch(authError(err.response.data.non_field_errors));
+        });
     }
     // axios.post(`${ROOT_URL}/api/auth/logout/`)
     // localStorage.removeItem('token');

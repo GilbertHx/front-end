@@ -7,6 +7,6 @@ export default function(state = initialState, action){
         case FETCH_CURRENT_USER_PROFILE:
             return action.payload.data
         default:
-         return state;
+            return state;
     }
 }
