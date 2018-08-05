@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ROOT_URL } from '../config/api_settings';
+import logo from '../img/logo.jpg';
 
 export default function(NavComponent) {
   class TopBar extends Component {
@@ -12,7 +12,7 @@ export default function(NavComponent) {
                 <div className="row justify-content-center">
                     <div className="col-12 lessons-top-bar-brand">
                         <Link to="/" className="navbar-brand">
-                          <img src={`${ROOT_URL}/media/logo.jpg`} className="logo-img"/>
+                          <img src={logo} className="logo-img"/>
                           <span className="logo-txt"> Online Course</span>
                         </Link>
                     </div>

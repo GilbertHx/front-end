@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchCurrentUserProfile } from '../actions/users_actions';
-import { ROOT_URL } from '../config/api_settings';
+import logo from '../img/logo.jpg';
+
 
 class NavBAr extends React.Component {
   componentDidMount() {
@@ -44,7 +45,7 @@ class NavBAr extends React.Component {
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light main-navbar">
             <Link className="navbar-brand" to="/">
-              <img src= {`${ROOT_URL}/media/logo.jpg`} className="logo-img"/>
+              <img src={logo} className="logo-img"/>
               <span className="logo-txt"> Online Course</span>
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
