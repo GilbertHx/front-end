@@ -7,6 +7,9 @@ import {
 import history from '../utils/history';
 import { ROOT_URL } from '../config/api_settings';
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 export function fetchUnits() {
     const request = axios({
         method: 'get',

@@ -7,6 +7,6 @@ export default function(state = initialState, action){
         case GET_CURRENT_USER:
             return action.payload.data
         default:
-         return state;
+            return state;
     }
 }

@@ -18,6 +18,12 @@ class Signup extends Component {
                     <strong>Oops!</strong>{this.props.errorMessage}
                 </div>
             );
+        } else if (this.props.successMessage) {
+            return (
+                <div className="alert alert-success">
+                    <strong>Good! </strong>{this.props.successMessage}
+                </div>
+            );
         }
     }
 
@@ -75,7 +81,8 @@ function validate(formProps) {
 
 function mapStateToProps(state) {
     return {
-        errorMessage: state.auth.error
+        errorMessage: state.auth.error,
+        successMessage: state.auth.success_msg,
     };
 }
 const afterSubmit = (result, dispatch) =>

@@ -6,6 +6,9 @@ import {
 
 import { ROOT_URL } from '../config/api_settings';
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 export function fetchAllQuizzes() {
     const request = axios.get(`${ROOT_URL}/api/quiz/list/`);
     return {

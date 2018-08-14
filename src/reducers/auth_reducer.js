@@ -1,4 +1,4 @@
-import { AUTH_USER, UNAUTH_USER, AUTH_ERROR, GET_CURRENT_USER } from '../actions/types';
+import { AUTH_USER, UNAUTH_USER, AUTH_SUCCESS, AUTH_ERROR, GET_CURRENT_USER } from '../actions/types';
 
 const initialState = {}
 
@@ -10,6 +10,8 @@ export default function(state = initialState, action){
             return { initialState, authenticated: false, is_staff: false };
         case AUTH_ERROR:
             return {...state, error: action.payload };
+        case AUTH_SUCCESS:
+            return {...state, success_msg: action.payload };
         case GET_CURRENT_USER:
             return { ...state, is_staff: action.payload.data.is_staff }
         default:

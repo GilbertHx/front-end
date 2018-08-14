@@ -10,6 +10,9 @@ import {
 
 import { ROOT_URL } from '../config/api_settings';
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 export function fetchExams() {
     const request = axios.get(`${ROOT_URL}/api/exam/`);
     return {

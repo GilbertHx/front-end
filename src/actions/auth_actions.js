@@ -1,11 +1,14 @@
 import axios from 'axios';
 
 import { 
-    AUTH_USER, UNAUTH_USER, AUTH_ERROR, GET_CURRENT_USER,
+    AUTH_USER, UNAUTH_USER, AUTH_ERROR, GET_CURRENT_USER, AUTH_SUCCESS
 } from './types';
 
 import history from '../utils/history';
 import { ROOT_URL } from '../config/api_settings';
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 export function loginUser(values, callback) {
     const { username, password } = values;
@@ -66,11 +69,20 @@ export function getCurrentUser(token) {
 export function signupUser(values){
     return function(dispatch) {
         axios.post(`${ROOT_URL}/api/registration/`, values)
+            .then(() => {
+                dispatch(authSuccess("Successfully Sing in"));
+            })
             .catch((err) => {
-                // dispatch(authError('Bad Singup Info'));
                 dispatch(authError(err.response.data.detail));
             });
     }
+}
+
+export function authSuccess(msg) {
+    return {
+        type: AUTH_SUCCESS,
+        payload: msg
+    };
 }
 
 export function authError(error) {

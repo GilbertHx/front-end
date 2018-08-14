@@ -6,6 +6,8 @@ import {
 
 import { ROOT_URL } from '../config/api_settings';
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 export function fetchAllEssays() {
     // const request = axios.get(`${ROOT_URL}/api/assessment/essay/responses/`);

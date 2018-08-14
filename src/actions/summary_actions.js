@@ -5,6 +5,9 @@ import {
 } from './types';
 import { ROOT_URL } from '../config/api_settings';
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 export function fetchSummary() {
     const request = axios({
         method: 'get',
